@@ -1,0 +1,10 @@
+<?php
+
+$host = '127.0.0.1';
+$port = '8000';
+$dbname = 'iutc';
+$user = 'root';
+$password = 'root';
+
+
+$dbh = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbname, $user, $password);
