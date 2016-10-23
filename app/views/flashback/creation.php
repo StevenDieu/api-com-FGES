@@ -1,4 +1,7 @@
 <!-- page content -->
+<script type="text/javascript">
+    var nextId = <?php echo $data["nextId"]; ?>
+</script>
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">

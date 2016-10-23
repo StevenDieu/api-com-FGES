@@ -8,13 +8,15 @@ class FlashbackController extends Controller {
     private $success = null;
 
     public function creation() {
+
+        $flashback = new Flashback();
+        $nextId = $flashback->getNextId();
         if ((!empty($_POST))) {
             if ((isset($_POST["titre"]) && !empty($_POST["titre"])) &&
                     (isset($_POST["description"]) && !empty($_POST["description"])) &&
                     (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0)) &&
                     (isset($_POST["date"]) && !empty($_POST["date"]))) {
 
-                $flashback = new Flashback();
                 $flashback->setTitre($_POST["titre"]);
                 $flashback->setDescription($_POST["description"]);
                 $flashback->setActive($_POST["active"]);
@@ -23,13 +25,21 @@ class FlashbackController extends Controller {
 
                 if ($flashback->getId() > 0) {
                     $this->success = "Le flashback à bien été créé.";
+                    $flashback = new Flashback();
+                    $src = 'assets/img/flashback/' . $nextId;
+                    (new helper())->deleteAndCreatDir($src);
                 } else {
                     $this->error = "Il y a une erreur dans l'ajout d'un flashback.";
                 }
             } else {
                 $this->error = "Tous les champs sont obligatoires.";
             }
+        } else {
+            $src = 'assets/img/flashback/' . $nextId;
+            (new helper())->deleteAndCreatDir($src);
         }
+
+
 
         if (empty($this->success) && (isset($_POST["titre"]) && isset($_POST["description"]) && isset($_POST["active"]) && isset($_POST["date"]))) {
             $this->flashbackReturn = new Flashback();
@@ -44,18 +54,31 @@ class FlashbackController extends Controller {
             'error' => $this->error,
             'success' => $this->success,
             'flashback' => $this->flashbackReturn,
+            'nextId' => $nextId,
             'froala' => 'froala'
         ));
     }
 
-    public function ajoutImage() {
-        // Include the editor SDK.
-        include_once 'lib/froala_editor.php';
+    public function ajoutImage($nextId) {
+        include_once 'lib/froala/froala_editor.php';
 
-        // Store the image.
         try {
-            $response = FroalaEditor_Image::upload('/assets/img/flashback');
+            $flashback = new Flashback();
+            $src = '/assets/img/flashback/' . $nextId . '/';
+            $response = FroalaEditor_Image::upload($src);
             echo stripslashes(json_encode($response));
+        } catch (Exception $e) {
+            http_response_code(404);
+        }
+    }
+
+    public function supprimeImage() {
+
+        include_once 'lib/froala/froala_editor.php';
+
+        try {
+            $response = FroalaEditor_Image::delete($_POST['src']);
+            echo stripslashes(json_encode('Success'));
         } catch (Exception $e) {
             http_response_code(404);
         }

@@ -15,7 +15,7 @@ class Flashback extends Database {
     public function addFlashback() {
         $dateTime = new DateTime($this->date);
         $this->date = $dateTime->format('Y-m-d H:i:s');
-        
+
         $stmt = $this->dbh->prepare("INSERT INTO flashback VALUES (null,?,?,?,?)");
 
         $stmt->bindParam(1, $this->titre);
@@ -68,6 +68,18 @@ class Flashback extends Database {
 
         if ($count) {
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    function getNextId() {
+        $stmt = $this->dbh->prepare("SHOW TABLE STATUS FROM com_fges LIKE 'flashback'");
+
+        $stmt->execute();
+
+        if ($stmt->rowCount()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC)["Auto_increment"];
         } else {
             return false;
         }
