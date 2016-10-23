@@ -297,13 +297,15 @@
 
     <!-- Include Language file if we want to use it. -->
     <script type="text/javascript" src="/assets/library/froala/js/languages/ro.js"></script>
+    <script type="text/javascript" src="/assets/js/froala.js"></script>
 
+   
     <!-- Initialize the editor. -->
     <script>
-        $(function () {
-            $('#edit').froalaEditor()
-            $(".fr-wrapper,.show-placeholder").next().remove()
-        });
+    $(function () {
+        $('#edit').froalaEditor()
+        $(".fr-wrapper,.show-placeholder").next().remove()
+    });
     </script>
 <?php } ?>
 </body>

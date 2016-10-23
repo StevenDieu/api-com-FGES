@@ -52,7 +52,7 @@ class Flashback extends Database {
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll();
         } else {
             return false;
         }

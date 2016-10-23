@@ -33,7 +33,7 @@
                     </div>
                     <div class="x_content">
                         <br>
-                        <form id="form-froala" action="/flashbaccreation/" method="post" class="form-horizontal form-label-left" >
+                        <form id="form-froala" action="/flashback/creation/" method="post" class="form-horizontal form-label-left" >
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Titre <span class="required">*</span>
@@ -51,7 +51,7 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <textarea id="edit" name="content"></textarea>
-                                    <input type="hidden" name="description" value="<?php
+                                    <input type="hidden" id="description" name="description" value="<?php
                                     if (isset($data["flashback"])) {
                                         echo $data["flashback"]->getDescription();
                                     }

@@ -48,6 +48,19 @@ class FlashbackController extends Controller {
         ));
     }
 
+    public function ajoutImage() {
+        // Include the editor SDK.
+        include_once 'lib/froala_editor.php';
+
+        // Store the image.
+        try {
+            $response = FroalaEditor_Image::upload('/assets/img/flashback');
+            echo stripslashes(json_encode($response));
+        } catch (Exception $e) {
+            http_response_code(404);
+        }
+    }
+
     public function modification() {
         $this->render($this->dirView . '/modification', array(
             'title' => 'Modification Flashback'

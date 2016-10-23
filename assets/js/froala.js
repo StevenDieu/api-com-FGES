@@ -1,7 +1,14 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+$(function () {
+    $('#edit').froalaEditor('html.insert', $("description").val(), true);
+    $("#form-froala").on("submit", function () {
+        $("#description").val($('#edit').froalaEditor('html.get', true));
+        if ($("#description").val() === "") {
+            return false;
+        }
+    });
+    
+    $('#edit').froalaEditor({
+      imageUploadURL: '/flashback/ajoutImage'
+    })
+});
 
