@@ -33,7 +33,7 @@
                     </div>
                     <div class="x_content">
                         <br>
-                        <form action="/flashback/creation" method="post" class="form-horizontal form-label-left" >
+                        <form id="form-froala" action="/flashbaccreation/" method="post" class="form-horizontal form-label-left" >
 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Titre <span class="required">*</span>
@@ -50,11 +50,12 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Description <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea class="form-control" rows="3" name="description"  placeholder="" required=""><?php
+                                    <textarea id="edit" name="content"></textarea>
+                                    <input type="hidden" name="description" value="<?php
                                     if (isset($data["flashback"])) {
                                         echo $data["flashback"]->getDescription();
                                     }
-                                    ?></textarea>
+                                    ?>" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -62,15 +63,15 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div id="gender" class="btn-group" data-toggle="buttons">
                                         <input type="radio" name="active" required="" value="1" data-parsley-multiple="actif" <?php
-                                    if (isset($data["flashback"]) && $data["flashback"]->getActive() == 1) {
-                                        echo "checked";
-                                    }
-                                    ?>> Oui
+                                        if (isset($data["flashback"]) && $data["flashback"]->getActive() == 1) {
+                                            echo "checked";
+                                        }
+                                        ?>> Oui
                                         <input type="radio" name="active" required="" value="0" data-parsley-multiple="actif" <?php
-                                    if ((isset($data["flashback"]) && $data["flashback"]->getActive() == 0) || !isset($data["flashback"])) {
-                                        echo "checked";
-                                    }
-                                    ?>> Non
+                                        if ((isset($data["flashback"]) && $data["flashback"]->getActive() == 0) || !isset($data["flashback"])) {
+                                            echo "checked";
+                                        }
+                                        ?>> Non
                                     </div>
                                 </div>
                             </div>

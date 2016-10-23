@@ -32,7 +32,32 @@
         <link href="/assets/library/css/custom.min.css" rel="stylesheet">
 
         <link href="/assets/css/main.css" rel="stylesheet">
+        <?php if (isset($data["froala"])) { ?>
+            <!-- Include Font Awesome. -->
+            <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
+            <!-- Include Editor style. -->
+            <link href="/assets/library/froala/css/froala_editor.min.css" rel="stylesheet" type="text/css" />
+            <link href="/assets/library/froala/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+
+            <!-- Include Code Mirror style -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+
+            <!-- Include Editor Plugins style. -->
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/char_counter.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/code_view.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/colors.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/emoticons.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/file.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/fullscreen.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/image.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/image_manager.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/line_breaker.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/quick_insert.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/table.css">
+            <link rel="stylesheet" href="/assets/library/froala/css/plugins/video.css">
+
+        <?php } ?>
     </head>
 
     <body class="nav-md">

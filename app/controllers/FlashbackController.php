@@ -43,7 +43,8 @@ class FlashbackController extends Controller {
             'title' => 'Création Flashback',
             'error' => $this->error,
             'success' => $this->success,
-            'flashback' => $this->flashbackReturn
+            'flashback' => $this->flashbackReturn,
+            'froala' => 'froala'
         ));
     }
 
