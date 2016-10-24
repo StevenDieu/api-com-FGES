@@ -32,7 +32,7 @@
         <link href="/assets/library/css/custom.min.css" rel="stylesheet">
 
         <link href="/assets/css/main.css" rel="stylesheet">
-        <?php if (isset($data["froala"])) { ?>
+        <?php if (isset($data["froala"]) && $data["froala"] == true) { ?>
             <!-- Include Font Awesome. -->
             <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
@@ -57,7 +57,16 @@
             <link rel="stylesheet" href="/assets/library/froala/css/plugins/table.css">
             <link rel="stylesheet" href="/assets/library/froala/css/plugins/video.css">
 
-        <?php } ?>
+        <?php
+        } else if (isset($data["arrayCss"])) {
+            foreach ($data["arrayCss"] as $fileCss) {
+                ?>
+                <link rel="stylesheet" href="/assets/css/<?php echo $fileCss; ?>.css">
+                <?php
+            }
+        }
+        ?>
+
     </head>
 
     <body class="nav-md">

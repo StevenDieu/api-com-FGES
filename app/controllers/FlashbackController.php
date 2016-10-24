@@ -24,8 +24,8 @@ class FlashbackController extends Controller {
                 $flashback->addFlashback();
 
                 if ($flashback->getId() > 0) {
+                    $nextId = $flashback->getNextId();
                     $this->success = "Le flashback à bien été créé.";
-                    $flashback = new Flashback();
                     $src = 'assets/img/flashback/' . $nextId;
                     (new helper())->deleteAndCreatDir($src);
                 } else {
@@ -55,7 +55,41 @@ class FlashbackController extends Controller {
             'success' => $this->success,
             'flashback' => $this->flashbackReturn,
             'nextId' => $nextId,
-            'froala' => 'froala'
+            'froala' => true
+        ));
+    }
+
+    public function modification($id = null) {
+        $flashbacks = null;
+        $flashback = null;
+        $froala = false;
+        if (isset($id) && !empty($id)) {
+            $flashbackConstruct = new Flashback();
+            $flashbackConstruct->setId($id);
+            $flashback = $flashbackConstruct->getFlashbackById();
+            $froala = true;
+        } else {
+            $flashbacks = (new Flashback())->getAllFlashback();
+        }
+        $arrayJs = array("flashback/modification");
+        $this->render($this->dirView . '/modification', array(
+            'title' => 'Modification Flashback',
+            'arrayJs' => $arrayJs,
+            'flashbacks' => $flashbacks,
+            'flashback' => $flashback,
+            'froala' => $froala
+        ));
+    }
+
+    public function suppression() {
+        $this->render($this->dirView . '/suppresion', array(
+            'title' => 'Suppresion Flashback'
+        ));
+    }
+
+    public function liste() {
+        $this->render($this->dirView . '/liste', array(
+            'title' => 'Liste Flashback'
         ));
     }
 
@@ -77,29 +111,11 @@ class FlashbackController extends Controller {
         include_once 'lib/froala/froala_editor.php';
 
         try {
-            $response = FroalaEditor_Image::delete($_POST['src']);
+            FroalaEditor_Image::delete($_POST['src']);
             echo stripslashes(json_encode('Success'));
         } catch (Exception $e) {
             http_response_code(404);
         }
-    }
-
-    public function modification() {
-        $this->render($this->dirView . '/modification', array(
-            'title' => 'Modification Flashback'
-        ));
-    }
-
-    public function suppression() {
-        $this->render($this->dirView . '/suppresion', array(
-            'title' => 'Suppresion Flashback'
-        ));
-    }
-
-    public function liste() {
-        $this->render($this->dirView . '/liste', array(
-            'title' => 'Liste Flashback'
-        ));
     }
 
 }

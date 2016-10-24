@@ -260,7 +260,7 @@
 </script>
 <!-- /Starrr -->
 
-<?php if (isset($data["froala"])) { ?>
+<?php if (isset($data["froala"]) && $data["froala"] == true) { ?>
     <!-- Include JS files. -->
     <script type="text/javascript" src="/assets/library/froala/js/froala_editor.min.js"></script>
 
@@ -299,7 +299,7 @@
     <script type="text/javascript" src="/assets/library/froala/js/languages/ro.js"></script>
     <script type="text/javascript" src="/assets/js/froala.js"></script>
 
-   
+
     <!-- Initialize the editor. -->
     <script>
     $(function () {
@@ -308,5 +308,16 @@
     });
     </script>
 <?php } ?>
+
+<?php
+if (isset($data["arrayJs"])) {
+    foreach ($data["arrayJs"] as $fileJs) {
+        ?>
+        <script type="text/javascript" src="/assets/js/<?php echo $fileJs; ?>.js"></script>
+        <?php
+    }
+}
+?>
+
 </body>
 </html>

@@ -32,7 +32,7 @@ class Flashback extends Database {
 
         $stmt = $this->dbh->prepare('SELECT * 
                 FROM flashback 
-                WHERE id_flashback = ?');
+                WHERE id = ?');
 
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
