@@ -28,6 +28,29 @@ class Flashback extends Database {
         $this->id = $this->dbh->lastInsertId();
     }
 
+    public function updateFlashback() {
+        $dateTime = new DateTime($this->date);
+        $this->date = $dateTime->format('Y-m-d H:i:s');
+
+        $stmt = $this->dbh->prepare("UPDATE flashback
+        SET titre = ?, description = ?, date_debut = ?, active = ?
+        WHERE id = ?");
+
+        $stmt->bindParam(1, $this->titre);
+        $stmt->bindParam(2, $this->description);
+        $stmt->bindParam(3, $this->date);
+        $stmt->bindParam(4, $this->active);
+        $stmt->bindParam(5, $this->id);
+
+        $count = $stmt->execute();
+
+        if ($count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function getFlashbackById() {
 
         $stmt = $this->dbh->prepare('SELECT * 
@@ -66,7 +89,7 @@ class Flashback extends Database {
         $stmt->bindParam(1, $this->id);
         $count = $stmt->execute();
 
-        if ($count) {
+        if ($stmt->rowCount() > 0) {
             return true;
         } else {
             return false;

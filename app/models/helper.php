@@ -2,7 +2,11 @@
 
 class helper {
 
-    function deleteAndCreatDir($src) {
+    function deleteDir($src){
+        $this->deleteAndCreatDir($src,false);
+    }
+    
+    function deleteAndCreatDir($src, $createDir = true) {
         if (file_exists($src)) {
             $dir = opendir($src);
             while (false !== ( $file = readdir($dir))) {
@@ -18,7 +22,9 @@ class helper {
             closedir($dir);
             rmdir($src);
         }
-        mkdir($src);
+        if ($createDir) {
+            mkdir($src);
+        }
     }
 
 }

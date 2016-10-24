@@ -22,12 +22,12 @@ class FlashbackController extends Controller {
                 $flashback->setActive($_POST["active"]);
                 $flashback->setDate($_POST["date"]);
                 $flashback->addFlashback();
-
-                if ($flashback->getId() > 0) {
+                $id = $flashback->getId();
+                if ($id > 0) {
                     $nextId = $flashback->getNextId();
-                    $this->success = "Le flashback à bien été créé.";
                     $src = 'assets/img/flashback/' . $nextId;
                     (new helper())->deleteAndCreatDir($src);
+                    header('Location: /flashback/modification/' . $id . '/true');
                 } else {
                     $this->error = "Il y a une erreur dans l'ajout d'un flashback.";
                 }
@@ -59,14 +59,39 @@ class FlashbackController extends Controller {
         ));
     }
 
-    public function modification($id = null) {
+    public function modification($id = null, $created = false) {
         $flashbacks = null;
         $flashback = null;
         $froala = false;
+        if ($created == true) {
+            $this->success = "Le flashback à bien été créé.";
+        }
         if (isset($id) && !empty($id)) {
             $flashbackConstruct = new Flashback();
             $flashbackConstruct->setId($id);
+
+            if ((!empty($_POST))) {
+                if ((isset($_POST["titre"]) && !empty($_POST["titre"])) &&
+                        (isset($_POST["description"]) && !empty($_POST["description"])) &&
+                        (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0)) &&
+                        (isset($_POST["date"]) && !empty($_POST["date"]))) {
+                    $flashbackConstruct->setTitre($_POST["titre"]);
+                    $flashbackConstruct->setDescription($_POST["description"]);
+                    $flashbackConstruct->setActive($_POST["active"]);
+                    $flashbackConstruct->setDate($_POST["date"]);
+
+                    if ($flashbackConstruct->updateFlashback()) {
+                        $this->success = "Le flashback à bien été modifié.";
+                    } else {
+                        $this->error = "Il y a une erreur dans la modification du flashback.";
+                    }
+                } else {
+                    $this->error = "Tous les champs sont obligatoires.";
+                }
+            }
             $flashback = $flashbackConstruct->getFlashbackById();
+            $dateTime = new DateTime($flashback["date_debut"]);
+            $flashback["date_debut"] = $dateTime->format('m/d/Y');
             $froala = true;
         } else {
             $flashbacks = (new Flashback())->getAllFlashback();
@@ -74,6 +99,8 @@ class FlashbackController extends Controller {
         $arrayJs = array("flashback/modification");
         $this->render($this->dirView . '/modification', array(
             'title' => 'Modification Flashback',
+            'error' => $this->error,
+            'success' => $this->success,
             'arrayJs' => $arrayJs,
             'flashbacks' => $flashbacks,
             'flashback' => $flashback,
@@ -82,8 +109,30 @@ class FlashbackController extends Controller {
     }
 
     public function suppression() {
+        $flashbackConstruct = new Flashback();
+
+        if ((!empty($_POST))) {
+            if ((isset($_POST["idFlashback"]) && !empty($_POST["idFlashback"]))) {
+
+                $flashbackConstruct->setId($_POST["idFlashback"]);
+                if ($flashbackConstruct->deleteFlashbackById()) {
+                    $src = 'assets/img/flashback/' . $_POST["idFlashback"];
+                    (new helper())->deleteDir($src);
+                    $this->success = "Le flashback à bien été supprimé.";
+                } else {
+                    $this->error = "Ce flashbaack n'existe pas";
+                }
+            } else {
+                $this->error = "Tous les champs sont obligatoires.";
+            }
+        }
+        $flashbacks = $flashbackConstruct->getAllFlashback();
+
         $this->render($this->dirView . '/suppresion', array(
-            'title' => 'Suppresion Flashback'
+            'title' => 'Suppresion Flashback',
+            'error' => $this->error,
+            'success' => $this->success,
+            'flashbacks' => $flashbacks
         ));
     }
 
