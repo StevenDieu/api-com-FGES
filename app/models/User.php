@@ -26,7 +26,9 @@ class User extends Database {
 
     public function existUser() {
         $stmt = $this->dbh->prepare('select email from user where email = ?');
+        
         $stmt->bindParam(1, $this->email);
+        
         $stmt->execute();
         if($stmt->rowCount()) {
             return true;
@@ -55,7 +57,6 @@ class User extends Database {
     }
 
     public function getUserByEmail() {
-
         $stmt = $this->dbh->prepare('SELECT * 
                 FROM user 
                 WHERE email = ?');
@@ -70,9 +71,7 @@ class User extends Database {
         }
     }
 
-    public function getUserIdById() 
-    {
-
+    public function getUserIdById() {
         $stmt = $this->dbh->prepare('SELECT * 
                 FROM user 
                 WHERE email = ?');

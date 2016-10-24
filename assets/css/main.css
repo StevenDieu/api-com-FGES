@@ -6,3 +6,12 @@
 .none{
     display: none;
 }
+
+.center-text{
+    text-align: center;
+}
+
+.center-auto{
+    margin: 0 auto;
+    float: none;
+}

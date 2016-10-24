@@ -52,10 +52,7 @@ class Flashback extends Database {
     }
 
     public function getFlashbackById() {
-
-        $stmt = $this->dbh->prepare('SELECT * 
-                FROM flashback 
-                WHERE id = ?');
+        $stmt = $this->dbh->prepare('SELECT * FROM flashback WHERE id = ?');
 
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
@@ -68,14 +65,39 @@ class Flashback extends Database {
     }
 
     public function getAllFlashback() {
-
-        $stmt = $this->dbh->prepare('SELECT * 
-                FROM flashback');
+        $stmt = $this->dbh->prepare('SELECT * FROM flashback');
 
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll();
+        } else {
+            return false;
+        }
+    }
+
+    public function getAllFlashbackByPage($start, $end) {
+        $stmt = $this->dbh->prepare('SELECT id,titre,date_debut FROM flashback where active = 1 order by date_debut desc LIMIT ? OFFSET ?');
+
+        $stmt->bindParam(1, $start, PDO::PARAM_INT);
+        $stmt->bindParam(2, $end, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll();
+        } else {
+            return false;
+        }
+    }
+
+    public function countFlashback() {
+        $stmt = $this->dbh->prepare('select count(id) as numberFlashback from flashback where active = 1');
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetch(PDO::FETCH_ASSOC)["numberFlashback"];
         } else {
             return false;
         }
@@ -89,8 +111,8 @@ class Flashback extends Database {
         $stmt->bindParam(1, $this->id);
         $count = $stmt->execute();
 
-        if ($stmt->rowCount() > 0) {
-            return true;
+        if ($count > 0) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
             return false;
         }

@@ -1,24 +1,26 @@
 <?php
 
-class Dispatcher
-{
+class Dispatcher {
+
     protected $controller = 'home';
     protected $method = 'index';
     protected $params = [];
     protected $url;
 
-    function __construct()
-    {
+    function __construct() {
         $this->url = $this->parseUrl();
-        if($_SERVER["REQUEST_URI"] != '/login' && empty($_SESSION["LOGIN"])) {
-            header("location: /login");
-        }
-        if($_SERVER["REQUEST_URI"] == '/login' && !empty($_SESSION["LOGIN"])) {
-            header("location: /");
+
+        if ($this->url[0] != "api") {
+            if ($_SERVER["REQUEST_URI"] != '/login' && empty($_SESSION["LOGIN"])) {
+                header("location: /login");
+            }
+            if ($_SERVER["REQUEST_URI"] == '/login' && !empty($_SESSION["LOGIN"])) {
+                header("location: /");
+            }
         }
         $correctControllerIsLoaded = $this->loadController($this->url[0]);
         unset($this->url[0]);
-        if($correctControllerIsLoaded && isset($this->url[1])) {
+        if ($correctControllerIsLoaded && isset($this->url[1])) {
             $this->loadControllerMethod($this->url[1]);
         }
         $this->params = $this->url ? array_values($this->url) : [];
@@ -26,34 +28,31 @@ class Dispatcher
         call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
-    public function parseUrl()
-    {
-        if(isset($_GET['url'])) {
+    public function parseUrl() {
+        if (isset($_GET['url'])) {
             return $this->url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
         }
     }
 
-    protected function loadController($controller)
-    {
-        if($controller && file_exists(dirname(__FILE__).'/../controllers/'.ucfirst($controller).'Controller.php')) {
+    protected function loadController($controller) {
+        if ($controller && file_exists(dirname(__FILE__) . '/../controllers/' . ucfirst($controller) . 'Controller.php')) {
             $correctController = true;
             $this->controller = $controller;
         }
 
-        require_once dirname(__FILE__).'/../controllers/'.ucfirst($this->controller).'Controller.php';
+        require_once dirname(__FILE__) . '/../controllers/' . ucfirst($this->controller) . 'Controller.php';
 
-        $controllerName = ucfirst($this->controller).'Controller';
+        $controllerName = ucfirst($this->controller) . 'Controller';
         $this->controller = new $controllerName;
 
         return (isset($correctController) && $correctController);
     }
 
-    protected function loadControllerMethod($method)
-    {
-        if(method_exists($this->controller, $method))
-        {
-            $this->method = $method; 
+    protected function loadControllerMethod($method) {
+        if (method_exists($this->controller, $method)) {
+            $this->method = $method;
             unset($this->url[1]);
         }
     }
+
 }

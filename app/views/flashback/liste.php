@@ -13,60 +13,93 @@
                     <div class="x_title">
                         <h2>Liste des flashback</h2>
                         <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-down"></i></a></li>
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
-                    <div class="x_content none">
-                        <br>
-                        <form action="/flashback/ajouter" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
+                    <div class="x_content">
+                        <form action="/flashback/suppression" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post">
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Titre <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" required="">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Description <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <textarea class="form-control" rows="3" required="required" placeholder="" required=""></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Actif <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div id="gender" class="btn-group" data-toggle="buttons">
-                                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="gender" value="oui" data-parsley-multiple="actif"> Oui
-                                        </label>
-                                        <label class="btn btn-default active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                            <input type="radio" name="gender" value="non" data-parsley-multiple="actif"> Non
-                                        </label>
+
+                                <br>
+                                <?php if (isset($data["flashbacks"]) && !empty($data["flashbacks"])) { ?>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped jambo_table bulk_action">
+                                            <thead>
+                                                <tr class="headings">
+                                                    <th class="column-title">Titre </th>
+                                                    <th class="column-title">Date </th>
+                                                    <th class="column-title center-text">Active </th>
+                                                    <th class="column-title no-link last center-text"><span class="nobr">Action</span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <?php
+                                                foreach ($data["flashbacks"] as $flashback) {
+                                                    ?>
+                                                    <tr class="even pointer">
+                                                        <td class=" "><?php echo $flashback["titre"]; ?></td>
+                                                        <td class=" "><?php echo $flashback["date_debut"]; ?></td>
+                                                        <td class="center-text">
+                                                            <?php if ($flashback["active"]) { ?> 
+                                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                            <?php } else { ?>
+                                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>                                                
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td class=" last center-text"><a href="/flashback/liste/<?php echo $flashback["id"] ?>">Visionner</a>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php } else if (isset($data["flashback"]) && isset($data["flashback"]["id"])) { ?>
+
+                                    <h1 class="center-text"><?php echo $data["flashback"]["titre"]; ?></h1>
+
+                                    <div class="center-auto">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 center-auto fr-view">
+                                            <br/>
+                                            <strong>Date :</strong> <?php echo $data["flashback"]["date_debut"]; ?>
+                                            <br/>
+                                            <strong>Active :</strong>
+                                            <?php if ($data["flashback"]["active"]) { ?> 
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            <?php } else { ?>
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>                                                
+                                            <?php } ?>
+                                            <br/>
+                                            <strong>Description :</strong><br/><br/>
+                                            <?php echo $data["flashback"]["description"]; ?>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Date de l'évènement <span class="required">*</span>
-                                </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                        <a type="submit" href="/flashback/liste/" class="btn btn-default">Retour</a>
+                                        <a type="submit" href="/flashback/modification/<?php echo $data["flashback"]["id"]; ?>" class="btn btn-warning">Modifer</a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="ln_solid"></div>
-                            <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <input type="submit" class="btn btn-success" value="Ajouter">
+                            <?php } else { ?>
+                                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    <strong>Attention!</strong> Ce flasback n'existe pas ! Pour en créer un cliquer <a href="/flashback/creation" >ici</a>
                                 </div>
-                            </div>
+                            <?php } ?>
 
-                        </form>
+
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!-- /page content -->

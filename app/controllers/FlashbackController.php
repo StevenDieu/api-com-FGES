@@ -8,7 +8,6 @@ class FlashbackController extends Controller {
     private $success = null;
 
     public function creation() {
-
         $flashback = new Flashback();
         $nextId = $flashback->getNextId();
         if ((!empty($_POST))) {
@@ -120,7 +119,7 @@ class FlashbackController extends Controller {
                     (new helper())->deleteDir($src);
                     $this->success = "Le flashback à bien été supprimé.";
                 } else {
-                    $this->error = "Ce flashbaack n'existe pas";
+                    $this->error = "Ce flashback n'existe pas";
                 }
             } else {
                 $this->error = "Tous les champs sont obligatoires.";
@@ -136,9 +135,25 @@ class FlashbackController extends Controller {
         ));
     }
 
-    public function liste() {
+    public function liste($id = null) {
+        $flashbackConstruct = new Flashback();
+        $flashbacks = null;
+        $flashback = null;
+        $viewerFroala = false;
+        if ($id == null) {
+            $flashbacks = $flashbackConstruct->getAllFlashback();
+        } else {
+            $flashbackConstruct->setId($id);
+            $flashback = $flashbackConstruct->getFlashbackById();
+            $dateTime = new DateTime($flashback["date_debut"]);
+            $flashback["date_debut"] = $dateTime->format('m/d/Y');
+            $viewerFroala = true;
+        }
         $this->render($this->dirView . '/liste', array(
-            'title' => 'Liste Flashback'
+            'title' => 'Liste Flashback',
+            'flashbacks' => $flashbacks,
+            'viewerFroala' => $viewerFroala,
+            'flashback' => $flashback
         ));
     }
 
