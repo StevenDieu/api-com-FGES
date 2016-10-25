@@ -8,7 +8,7 @@ class ApiController extends Controller {
         if ($id) {
             $flashbackConstruct = new Flashback();
             $flashbackConstruct->setId($id);
-            $flashback = $flashbackConstruct->getFlashbackById();
+            $flashback = $flashbackConstruct->getFlashbackByIdActive();
             if (!empty($flashback)) {
                 $jsonFlashback["titre"] = $flashback["titre"];
                 new DateTime($flashback["date_debut"]);
@@ -26,12 +26,10 @@ class ApiController extends Controller {
         header("Access-Control-Allow-Origin: *");
         if ($page != null) {
             $jsonFlashbacks = array();
-            $start = $page * 10;
-            $end = $start - 10;
             $flashbackConstruct = new Flashback();
             $count = $flashbackConstruct->countFlashback();
             if ($count > 0 && $count / 10 >= $page - 1) {
-                foreach ($flashbackConstruct->getAllFlashbackByPage($start, $end) as $flashbacks) {
+                foreach ($flashbackConstruct->getAllFlashbackByPage($page * 10) as $flashbacks) {
                     $jsonFlashback["titre"] = $flashbacks["titre"];
                     new DateTime($flashbacks["date_debut"]);
                     date_default_timezone_set('Europe/Paris');
