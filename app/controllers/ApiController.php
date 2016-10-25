@@ -11,8 +11,10 @@ class ApiController extends Controller {
             $flashback = $flashbackConstruct->getFlashbackById();
             if (!empty($flashback)) {
                 $jsonFlashback["titre"] = $flashback["titre"];
-                $dateTime = new DateTime($flashback["date_debut"]);
-                $jsonFlashback["date_debut"] = $dateTime->format('m/d/Y');
+                new DateTime($flashback["date_debut"]);
+                date_default_timezone_set('Europe/Paris');
+                setlocale(LC_TIME, 'fr_FR.utf8', 'fra'); // OK
+                $jsonFlashback["date_debut"] = strftime("%A %d %B %Y");
                 $jsonFlashback["description"] = $flashback["description"];
                 echo json_encode($jsonFlashback);
             }
@@ -28,11 +30,13 @@ class ApiController extends Controller {
             $end = $start - 10;
             $flashbackConstruct = new Flashback();
             $count = $flashbackConstruct->countFlashback();
-            if ($count / 10 >= $page - 1) {
+            if ($count > 0 && $count / 10 >= $page - 1) {
                 foreach ($flashbackConstruct->getAllFlashbackByPage($start, $end) as $flashbacks) {
                     $jsonFlashback["titre"] = $flashbacks["titre"];
-                    $dateTime = new DateTime($flashbacks["date_debut"]);
-                    $jsonFlashback["date_debut"] = $dateTime->format('m/d/Y');
+                    new DateTime($flashbacks["date_debut"]);
+                    date_default_timezone_set('Europe/Paris');
+                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra'); // OK
+                    $jsonFlashback["date_debut"] = strftime("%A %d %B %Y");
                     $jsonFlashback["id"] = $flashbacks["id"];
                     array_push($jsonFlashbacks, $jsonFlashback);
                 }
@@ -40,4 +44,5 @@ class ApiController extends Controller {
             }
         }
     }
+
 }
