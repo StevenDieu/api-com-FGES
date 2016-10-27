@@ -1,11 +1,17 @@
 <?php
 
 class helper {
-
-    function deleteDir($src){
-        $this->deleteAndCreatDir($src,false);
-    }
     
+    function deleteFile($src){
+        if(file_exists($src)){
+            unlink($src);
+        }
+    }
+
+    function deleteDir($src) {
+        $this->deleteAndCreatDir($src, false);
+    }
+
     function deleteAndCreatDir($src, $createDir = true) {
         if (file_exists($src)) {
             $dir = opendir($src);
@@ -23,6 +29,12 @@ class helper {
             rmdir($src);
         }
         if ($createDir) {
+            mkdir($src);
+        }
+    }
+
+    function createDir($src) {
+        if (!file_exists($src)) {
             mkdir($src);
         }
     }

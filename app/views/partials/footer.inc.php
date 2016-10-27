@@ -44,6 +44,8 @@
 <!-- starrr -->
 <script src="/assets/library/starrr/dist/starrr.js"></script>
 
+<script src="/assets/library/dropzone/dist/min/dropzone.min.js"></script>
+
 <!-- Custom Theme Scripts -->
 <script src="/assets/library/js/custom.min.js"></script>
 

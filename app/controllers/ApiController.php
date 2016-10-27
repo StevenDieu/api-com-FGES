@@ -43,4 +43,48 @@ class ApiController extends Controller {
         }
     }
 
+    public function listeAlbum($page = null) {
+        header('Content-type: text/plain');
+        header("Access-Control-Allow-Origin: *");
+        if ($page != null) {
+            $jsonAlbums = array();
+            $albumConstruct = new Album();
+            $count = $albumConstruct->countAlbum();
+            if ($count > 0 && $count / 10 >= $page - 1) {
+                foreach ($albumConstruct->getAllAlbumByPage($page * 10) as $albums) {
+                    $jsonAlbum["titre"] = $albums["titre"];
+                    new DateTime($albums["date_debut"]);
+                    date_default_timezone_set('Europe/Paris');
+                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra'); // OK
+                    $jsonAlbum["date_debut"] = strftime("%A %d %B %Y");
+                    $jsonAlbum["id"] = $albums["id"];
+                    array_push($jsonAlbums, $jsonAlbum);
+                }
+                echo json_encode($jsonAlbums);
+            }
+        }
+    }
+
+    public function listePhoto($page = null) {
+        header('Content-type: text/plain');
+        header("Access-Control-Allow-Origin: *");
+        if ($page != null) {
+            $jsonPhotos = array();
+            $photoConstruct = new Photos();
+            $count = $albumConstruct->countAlbum();
+            if ($count > 0 && $count / 10 >= $page - 1) {
+                foreach ($albumConstruct->getAllAlbumByPage($page * 10) as $albums) {
+                    $jsonAlbum["titre"] = $albums["titre"];
+                    new DateTime($albums["date_debut"]);
+                    date_default_timezone_set('Europe/Paris');
+                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra'); // OK
+                    $jsonAlbum["date_debut"] = strftime("%A %d %B %Y");
+                    $jsonAlbum["id"] = $albums["id"];
+                    array_push($jsonAlbums, $jsonAlbum);
+                }
+                echo json_encode($jsonAlbums);
+            }
+        }
+    }
+
 }

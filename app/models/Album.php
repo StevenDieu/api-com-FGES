@@ -1,10 +1,9 @@
 <?php
 
-class Flashback extends Database {
+class Album extends Database {
 
     private $id;
     private $titre;
-    private $description;
     private $date;
     private $active;
 
@@ -12,35 +11,33 @@ class Flashback extends Database {
         parent::__construct();
     }
 
-    public function addFlashback() {
+    public function addAlbum() {
         $dateTime = new DateTime($this->date);
         $this->date = $dateTime->format('Y-m-d H:i:s');
 
-        $stmt = $this->dbh->prepare("INSERT INTO flashback VALUES (null,?,?,?,?)");
+        $stmt = $this->dbh->prepare("INSERT INTO album VALUES (null,?,?,?)");
 
         $stmt->bindParam(1, $this->titre);
-        $stmt->bindParam(2, $this->description);
-        $stmt->bindParam(3, $this->date);
-        $stmt->bindParam(4, $this->active);
+        $stmt->bindParam(2, $this->date);
+        $stmt->bindParam(3, $this->active);
 
         $stmt->execute();
 
         $this->id = $this->dbh->lastInsertId();
     }
 
-    public function updateFlashback() {
+    public function updateAlbum() {
         $dateTime = new DateTime($this->date);
         $this->date = $dateTime->format('Y-m-d H:i:s');
 
-        $stmt = $this->dbh->prepare("UPDATE flashback
-        SET titre = ?, description = ?, date_debut = ?, active = ?
+        $stmt = $this->dbh->prepare("UPDATE album
+        SET titre = ?, date_debut = ?, active = ?
         WHERE id = ?");
 
         $stmt->bindParam(1, $this->titre);
-        $stmt->bindParam(2, $this->description);
-        $stmt->bindParam(3, $this->date);
-        $stmt->bindParam(4, $this->active);
-        $stmt->bindParam(5, $this->id);
+        $stmt->bindParam(2, $this->date);
+        $stmt->bindParam(3, $this->active);
+        $stmt->bindParam(4, $this->id);
 
         $count = $stmt->execute();
 
@@ -51,8 +48,8 @@ class Flashback extends Database {
         }
     }
 
-    public function getFlashbackById() {
-        $stmt = $this->dbh->prepare('SELECT * FROM flashback WHERE id = ?');
+    public function getAlbumById() {
+        $stmt = $this->dbh->prepare('SELECT * FROM album WHERE id = ?');
 
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
@@ -64,8 +61,8 @@ class Flashback extends Database {
         }
     }
 
-    function getFlashbackByIdActive() {
-        $stmt = $this->dbh->prepare('SELECT * FROM flashback WHERE id = ? and active = 1');
+    function getAlbumByIdActive() {
+        $stmt = $this->dbh->prepare('SELECT * FROM album WHERE id = ? and active = 1');
 
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
@@ -77,8 +74,8 @@ class Flashback extends Database {
         }
     }
 
-    public function getAllFlashback() {
-        $stmt = $this->dbh->prepare('SELECT * FROM flashback');
+    public function getAllAlbum() {
+        $stmt = $this->dbh->prepare('SELECT * FROM album');
 
         $stmt->execute();
 
@@ -89,8 +86,8 @@ class Flashback extends Database {
         }
     }
 
-    public function getAllFlashbackByPage($start) {
-        $stmt = $this->dbh->prepare('SELECT id,titre,date_debut FROM flashback where active = 1 order by date_debut desc LIMIT 10 OFFSET ?');
+    public function getAllAlbumByPage($start) {
+        $stmt = $this->dbh->prepare('SELECT * FROM album order by date_debut desc LIMIT 10 OFFSET ?');
 
         $stmt->bindParam(1, $start, PDO::PARAM_INT);
 
@@ -103,26 +100,26 @@ class Flashback extends Database {
         }
     }
 
-    public function countFlashback() {
-        $stmt = $this->dbh->prepare('select count(id) as numberFlashback from flashback where active = 1');
+    public function countAlbum() {
+        $stmt = $this->dbh->prepare('select count(id) as numberAlbum from album');
 
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetch(PDO::FETCH_ASSOC)["numberFlashback"];
+            return $stmt->fetch(PDO::FETCH_ASSOC)["numberAlbum"];
         } else {
             return false;
         }
     }
 
-    public function deleteFlashbackById() {
+    public function deleteAlbumById() {
 
-        $stmt = $this->dbh->prepare('DELETE FROM flashback
+        $stmt = $this->dbh->prepare('DELETE FROM album
         WHERE id = ?');
 
         $stmt->bindParam(1, $this->id);
         $count = $stmt->execute();
-
+        
         if ($count > 0) {
             return true;
         } else {
@@ -131,7 +128,7 @@ class Flashback extends Database {
     }
 
     function getNextId() {
-        $stmt = $this->dbh->prepare("SHOW TABLE STATUS FROM com_fges LIKE 'flashback'");
+        $stmt = $this->dbh->prepare("SHOW TABLE STATUS FROM com_fges LIKE 'album'");
 
         $stmt->execute();
 
@@ -150,10 +147,6 @@ class Flashback extends Database {
         return $this->titre;
     }
 
-    function getDescription() {
-        return $this->description;
-    }
-
     function getDate() {
         return $this->date;
     }
@@ -168,10 +161,6 @@ class Flashback extends Database {
 
     function setTitre($titre) {
         $this->titre = $titre;
-    }
-
-    function setDescription($description) {
-        $this->description = $description;
     }
 
     function setDate($date) {
