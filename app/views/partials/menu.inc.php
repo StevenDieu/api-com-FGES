@@ -23,7 +23,10 @@
                             <li class="">
                                 <a><i class="fa fa-picture-o"></i> Les photos <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="/lesphotos">Gestion des photos</a></li>
+                                    <li><a href="/lesphotos/liste">Liste des photos</a></li>
+                                    <li><a href="/lesphotos/creation">Création des photos</a></li>
+                                    <li><a href="/lesphotos/modification">Modification des photos</a></li>
+                                    <li><a href="/lesphotos/suppression">Suppression des photos</a></li>
                                 </ul>
                             </li>
                             <li class="">
