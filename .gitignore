@@ -46,4 +46,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /nbproject/private/
-/assets/img/flashback/
+/assets/img/flashback/*
+/assets/img/avenir/*
+/assets/img/album/*
