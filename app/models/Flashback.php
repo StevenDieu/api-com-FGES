@@ -64,6 +64,19 @@ class Flashback extends Database {
         }
     }
 
+    function getFlashbackByIdActive() {
+        $stmt = $this->dbh->prepare('SELECT * FROM flashback WHERE id = ? and active = 1');
+
+        $stmt->bindParam(1, $this->id);
+        $stmt->execute();
+
+        if ($stmt->rowCount()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
+
     public function getAllFlashback() {
         $stmt = $this->dbh->prepare('SELECT * FROM flashback');
 
@@ -76,11 +89,10 @@ class Flashback extends Database {
         }
     }
 
-    public function getAllFlashbackByPage($start, $end) {
-        $stmt = $this->dbh->prepare('SELECT id,titre,date_debut FROM flashback where active = 1 order by date_debut desc LIMIT ? OFFSET ?');
+    public function getAllFlashbackByPage($start) {
+        $stmt = $this->dbh->prepare('SELECT id,titre,date_debut FROM flashback where active = 1 order by date_debut desc LIMIT 10 OFFSET ?');
 
         $stmt->bindParam(1, $start, PDO::PARAM_INT);
-        $stmt->bindParam(2, $end, PDO::PARAM_INT);
 
         $stmt->execute();
 
