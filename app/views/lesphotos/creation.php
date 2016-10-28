@@ -3,7 +3,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Création d'un album photos</h3>
+                <h3>Création d'un album photos et ajout de photos</h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -40,8 +40,8 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="first-name" name="titre" value="<?php
-                                    if (isset($data["lesphotos"])) {
-                                        echo $data["lesphotos"]->getTitre();
+                                    if (isset($data["album"])) {
+                                        echo $data["album"]->getTitre();
                                     }
                                     ?>" class="form-control col-md-7 col-xs-12" required="">
                                 </div>
@@ -51,10 +51,27 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input id="birthday" name="date" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" value="<?php
-                                    if (isset($data["lesphotos"])) {
-                                        echo $data["lesphotos"]->getDate();
+                                    if (isset($data["album"])) {
+                                        echo $data["album"]->getDate();
                                     }
                                     ?>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Actif <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div id="gender" class="btn-group" data-toggle="buttons">
+                                        <input type="radio" name="active" required="" value="1" data-parsley-multiple="actif" <?php
+                                        if (isset($data["album"]) && $data["album"]->getActive() == 1) {
+                                            echo "checked";
+                                        }
+                                        ?>> Oui
+                                        <input type="radio" name="active" required="" value="0" data-parsley-multiple="actif" <?php
+                                        if ((isset($data["album"]) && $data["album"]->getActive() == 0) || !isset($data["album"])) {
+                                            echo "checked";
+                                        }
+                                        ?>> Non
+                                    </div>
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -64,50 +81,6 @@
                                 </div>
                             </div>
 
-                        </form>
-                    </div>
-                </div>
-
-                <div class="x_panel">
-
-                    <div class="x_title">
-                        <h2>Ajouter des photos</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <br>
-                        <form id="form-froala" action="/lesphotos/ajouterdesphotos/" method="post" class="form-horizontal form-label-left" >
-
-                            <div class="form-group">
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Flashback
-                                    </label>
-                                    <div  class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="idFlashback" id="selectFlashback" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                                            <option value="-1">Choisir un évènement</option>
-                                            <?php
-                                            if (isset($data["evenements"]) && !empty($data["evenements"])) {
-                                                foreach ($data["evenements"] as $evenement) {
-                                                    ?>
-                                                    <option value="<?php echo $flashbacks["id"]; ?>"><?php echo $flashbacks["titre"]; ?></option>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            <div class="ln_solid"></div>
-                            <div class="form-group">
-                                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                    <button type="submit" class="btn btn-primary">Choisir</button>
-                                </div>
-                            </div>
-                            </div>
                         </form>
                     </div>
                 </div>

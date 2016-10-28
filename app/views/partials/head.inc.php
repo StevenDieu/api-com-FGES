@@ -28,8 +28,11 @@
         <!-- bootstrap-daterangepicker -->
         <link href="/assets/library/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+        <link href="/assets/library/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+
         <!-- Custom Theme Style -->
         <link href="/assets/library/css/custom.min.css" rel="stylesheet">
+
 
         <link href="/assets/css/main.css" rel="stylesheet">
         <?php if ((isset($data["froala"]) && $data["froala"] == true)) {
