@@ -21,23 +21,30 @@ class ApiController extends Controller {
         }
     }
 
-    public function listeflashback($page = null) {
+    public function listeflashback($start = null) {
         header('Content-type: text/plain');
         header("Access-Control-Allow-Origin: *");
-        if ($page != null) {
+        if ($start != null) {
             $jsonFlashbacks = array();
             $flashbackConstruct = new Flashback();
             $count = $flashbackConstruct->countFlashback();
-            if ($count > 0 && $count / 10 >= $page) {
-                foreach ($flashbackConstruct->getAllFlashbackByPage($page * 10) as $flashbacks) {
+            if ($start == 0) {
+                $limit = 20;
+            } else {
+                $limit = 10;
+            }
+            if ($count > 0 && ($start == 0 || $count - $start - 10 > 0)) {
+                foreach ($flashbackConstruct->getAllFlashbackByPage($start, $limit) as $flashbacks) {
                     $jsonFlashback["titre"] = $flashbacks["titre"];
                     new DateTime($flashbacks["date_debut"]);
                     date_default_timezone_set('Europe/Paris');
-                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra'); // OK
+                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
                     $jsonFlashback["date_debut"] = strftime("%A %d %B %Y");
                     $jsonFlashback["id"] = $flashbacks["id"];
                     array_push($jsonFlashbacks, $jsonFlashback);
                 }
+                $jsonAlbums["articles"] = $jsonAlbums;
+                $jsonAlbums["nextStart"] = $start + $limit;
                 echo json_encode($jsonFlashbacks);
             } else {
                 $json["error"] = "nothing";
@@ -46,23 +53,30 @@ class ApiController extends Controller {
         }
     }
 
-    public function listeAlbum($page = null) {
+    public function listeAlbum($start = null) {
         header('Content-type: text/plain');
         header("Access-Control-Allow-Origin: *");
-        if ($page != null) {
+        if ($start != null) {
             $jsonAlbums = array();
             $albumConstruct = new Album();
             $count = $albumConstruct->countAlbum();
-            if ($count > 0 && $count / 10 >= $page) {
-                foreach ($albumConstruct->getAllAlbumByPage($page * 10) as $albums) {
+            if ($start == 0) {
+                $limit = 20;
+            } else {
+                $limit = 10;
+            }
+            if ($count > 0 && ($start == 0 || $count - $start - 10 > 0)) {
+                foreach ($albumConstruct->getAllAlbumByPage($start, $limit) as $albums) {
                     $jsonAlbum["titre"] = $albums["titre"];
                     new DateTime($albums["date_debut"]);
                     date_default_timezone_set('Europe/Paris');
-                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra'); // OK
+                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
                     $jsonAlbum["date_debut"] = strftime("%A %d %B %Y");
                     $jsonAlbum["id"] = $albums["id"];
                     array_push($jsonAlbums, $jsonAlbum);
                 }
+                $jsonAlbums["articles"] = $jsonAlbums;
+                $jsonAlbums["nextStart"] = $start + $limit;
                 echo json_encode($jsonAlbums);
             } else {
                 $json["error"] = "nothing";

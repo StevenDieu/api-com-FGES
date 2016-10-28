@@ -89,10 +89,11 @@ class Flashback extends Database {
         }
     }
 
-    public function getAllFlashbackByPage($start) {
-        $stmt = $this->dbh->prepare('SELECT id,titre,date_debut FROM flashback where active = 1 order by date_debut desc LIMIT 10 OFFSET ?');
-
-        $stmt->bindParam(1, $start, PDO::PARAM_INT);
+    public function getAllFlashbackByPage($start, $limit) {
+        $stmt = $this->dbh->prepare('SELECT id,titre,date_debut FROM flashback where active = 1 order by date_debut desc LIMIT ? OFFSET ?');
+        $startInt = intval($start);
+        $stmt->bindParam(1, $limit, PDO::PARAM_INT);
+        $stmt->bindParam(2, $startInt, PDO::PARAM_INT);
 
         $stmt->execute();
 
