@@ -1,10 +1,5 @@
 <?php
 
-$host = '127.0.0.1';
-$port = '8000';
-$dbname = 'iutc';
-$user = 'root';
-$password = 'root';
-
-
-$dbh = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbname, $user, $password);
+$bd='comfges';
+define('DSN','mysql:host=clm02.evxonline.net;dbname='.$bd);
+$dbh = new PDO(DSN,'comfges','Ct@9ZwGWJ3');
