@@ -89,7 +89,7 @@ class Album extends Database {
     public function getAllAlbumByPage($start, $limit) {
         $startInt = intval($start);
 
-        $stmt = $this->dbh->prepare('SELECT * FROM album order by date_debut desc LIMIT ? OFFSET ?');
+        $stmt = $this->dbh->prepare('SELECT * FROM album where active = 1 order by date_debut desc LIMIT ? OFFSET ?');
 
         $stmt->bindParam(1, $limit, PDO::PARAM_INT);
         $stmt->bindParam(2, $startInt, PDO::PARAM_INT);
@@ -104,7 +104,7 @@ class Album extends Database {
     }
 
     public function countAlbum() {
-        $stmt = $this->dbh->prepare('select count(id) as numberAlbum from album');
+        $stmt = $this->dbh->prepare('select count(id) as numberAlbum from album where active = 1 ');
 
         $stmt->execute();
 

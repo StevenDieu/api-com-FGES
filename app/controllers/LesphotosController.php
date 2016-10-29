@@ -166,7 +166,6 @@ class LesphotosController extends Controller {
             $storeFolder = '/assets/img/album/' . $id . $ds;
 
             if (!empty($_FILES)) {
-
                 $tempFile = $_FILES['file']['tmp_name'];
                 $targetPath = $_SERVER['DOCUMENT_ROOT'] . $ds . $storeFolder;
                 (new helper())->createDir($targetPath);
@@ -182,10 +181,16 @@ class LesphotosController extends Controller {
                     $photos->addPhotos();
                     $result["id"] = $photos->getId();
                     $result["url"] = "http://" . $_SERVER['HTTP_HOST'] . $photos->getUrl();
-                    echo json_encode($result);
+                } else {
+                    $result["error"] = "error impossible à déplacer";
                 }
+            } else {
+                $result["error"] = "error manque l'image";
             }
+        } else {
+            $result["error"] = "error manque id";
         }
+        echo json_encode($result);
     }
 
     public function supprimerImage($id = null) {

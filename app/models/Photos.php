@@ -65,13 +65,32 @@ class Photos extends Database {
         }
     }
 
-    public function countPhotos() {
-        $stmt = $this->dbh->prepare('select count(id) as numberPhotos from photos');
+    public function countPhotosByIdAlbum() {
+        $stmt = $this->dbh->prepare('select count(id) as numberPhotos from photos where id_album = ?');
+
+        $stmt->bindParam(1, $this->id_album);
 
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
             return $stmt->fetch(PDO::FETCH_ASSOC)["numberPhotos"];
+        } else {
+            return false;
+        }
+    }
+
+    public function getAllPhotosByPageAndIdAlbum($start) {
+        $startInt = intval($start);
+
+        $stmt = $this->dbh->prepare('SELECT * FROM photos where id_album = ? LIMIT 10 OFFSET ?');
+
+        $stmt->bindParam(1, $this->id_album);
+        $stmt->bindParam(2, $startInt, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll();
         } else {
             return false;
         }

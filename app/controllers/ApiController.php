@@ -22,62 +22,52 @@ class ApiController extends Controller {
     }
 
     public function listeflashback($start = null) {
-        header('Content-type: text/plain');
-        header("Access-Control-Allow-Origin: *");
-        if ($start != null) {
-            $jsonFlashbacks = array();
-            $flashbackConstruct = new Flashback();
-            $count = $flashbackConstruct->countFlashback();
-            if ($start == 0) {
-                $limit = 20;
-            } else {
-                $limit = 10;
-            }
-            if ($count > 0 && ($start == 0 || $count - $start - 10 > 0)) {
-                foreach ($flashbackConstruct->getAllFlashbackByPage($start, $limit) as $flashbacks) {
-                    $jsonFlashback["titre"] = $flashbacks["titre"];
-                    new DateTime($flashbacks["date_debut"]);
-                    date_default_timezone_set('Europe/Paris');
-                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-                    $jsonFlashback["date_debut"] = strftime("%A %d %B %Y");
-                    $jsonFlashback["id"] = $flashbacks["id"];
-                    array_push($jsonFlashbacks, $jsonFlashback);
-                }
-                $jsonAlbums["articles"] = $jsonAlbums;
-                $jsonAlbums["nextStart"] = $start + $limit;
-                echo json_encode($jsonFlashbacks);
-            } else {
-                $json["error"] = "nothing";
-                echo json_encode($json);
-            }
-        }
+        $this->getListe("flashabck", $start);
     }
 
     public function listeAlbum($start = null) {
+        $this->getListe("album", $start);
+    }
+
+    private function getListe($type, $start) {
         header('Content-type: text/plain');
         header("Access-Control-Allow-Origin: *");
         if ($start != null) {
-            $jsonAlbums = array();
-            $albumConstruct = new Album();
-            $count = $albumConstruct->countAlbum();
+            $json = array();
+            $constructor = null;
+            $count = null;
+
+            if ($type == "album") {
+                $constructor = new Album();
+                $count = $constructor->countAlbum();
+            } else {
+                $constructor = new Flashback();
+                $count = $constructor->countFlashback();
+            }
+
             if ($start == 0) {
                 $limit = 20;
             } else {
                 $limit = 10;
             }
-            if ($count > 0 && ($start == 0 || $count - $start - 10 > 0)) {
-                foreach ($albumConstruct->getAllAlbumByPage($start, $limit) as $albums) {
-                    $jsonAlbum["titre"] = $albums["titre"];
-                    new DateTime($albums["date_debut"]);
+            if ($count > 0 && ($start == 0 || $count - $start > 0)) {
+                if ($type == "album") {
+                    $list = $constructor->getAllAlbumByPage($start, $limit);
+                } else {
+                    $list = $constructor->getAllFlashbackByPage($start, $limit);
+                }
+                foreach ($list as $elt) {
+                    $array["titre"] = $elt["titre"];
+                    new DateTime($elt["date_debut"]);
                     date_default_timezone_set('Europe/Paris');
                     setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-                    $jsonAlbum["date_debut"] = strftime("%A %d %B %Y");
-                    $jsonAlbum["id"] = $albums["id"];
-                    array_push($jsonAlbums, $jsonAlbum);
+                    $array["date_debut"] = strftime("%A %d %B %Y");
+                    $array["id"] = $elt["id"];
+                    array_push($json, $array);
                 }
-                $jsonAlbums["articles"] = $jsonAlbums;
-                $jsonAlbums["nextStart"] = $start + $limit;
-                echo json_encode($jsonAlbums);
+                $json["articles"] = $json;
+                $json["nextStart"] = $start + $limit;
+                echo json_encode($json);
             } else {
                 $json["error"] = "nothing";
                 echo json_encode($json);
@@ -85,24 +75,27 @@ class ApiController extends Controller {
         }
     }
 
-    public function listePhoto($page = null) {
+    public function listePhoto($idAlbum = null, $start = null) {
         header('Content-type: text/plain');
         header("Access-Control-Allow-Origin: *");
-        if ($page != null) {
+        if ($start != null) {
             $jsonPhotos = array();
             $photoConstruct = new Photos();
-            $count = $albumConstruct->countAlbum();
-            if ($count > 0 && $count / 10 >= $page - 1) {
-                foreach ($albumConstruct->getAllAlbumByPage($page * 10) as $albums) {
-                    $jsonAlbum["titre"] = $albums["titre"];
-                    new DateTime($albums["date_debut"]);
-                    date_default_timezone_set('Europe/Paris');
-                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra'); // OK
-                    $jsonAlbum["date_debut"] = strftime("%A %d %B %Y");
-                    $jsonAlbum["id"] = $albums["id"];
-                    array_push($jsonAlbums, $jsonAlbum);
+            $photoConstruct->setId_album($idAlbum);
+            $count = $photoConstruct->countPhotosByIdAlbum();
+            if ($count > 0 && ($start == 0 || $count - $start > 0)) {
+                foreach ($photoConstruct->getAllPhotosByPageAndIdAlbum($start) as $photos) {
+                    $jsonPhoto["id"] = $photos["id"];
+                    $jsonPhoto["url"] = str_replace("\\", "/", $photos["url"]);
+                    $jsonPhoto["name"] = $photos["name"];
+                    array_push($jsonPhotos, $jsonPhoto);
                 }
-                echo json_encode($jsonAlbums);
+                $jsonPhotos["articles"] = $jsonPhotos;
+                $jsonPhotos["nextStart"] = $start + 10;
+                echo json_encode($jsonPhotos);
+            } else {
+                $json["error"] = "nothing";
+                echo json_encode($json);
             }
         }
     }
