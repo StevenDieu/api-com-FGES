@@ -79,6 +79,36 @@ class Photos extends Database {
         }
     }
 
+    public function getPreviousPhotoByPage() {
+        $stmt = $this->dbh->prepare('SELECT id_album,id FROM photos WHERE id_album = ? and id < ? ORDER BY id DESC LIMIT 1;');
+
+        $stmt->bindParam(1, $this->id_album);
+        $stmt->bindParam(2, $this->id);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
+
+    public function getNextPhotoByPage() {
+        $stmt = $this->dbh->prepare('SELECT id_album,id FROM photos WHERE id_album = ? and id > ? ORDER BY id LIMIT 1;');
+
+        $stmt->bindParam(1, $this->id_album);
+        $stmt->bindParam(2, $this->id);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
+
     public function getAllPhotosByPageAndIdAlbum($start) {
         $startInt = intval($start);
 
