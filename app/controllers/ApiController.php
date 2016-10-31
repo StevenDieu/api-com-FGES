@@ -29,21 +29,62 @@ class ApiController extends Controller {
             $photoConstruct->setId($id);
             $photoConstruct->setId_album($id_album);
             $photo = $photoConstruct->getPhotoById();
-            $json = array();
             if (!empty($photo)) {
                 $jsonPhoto["name"] = $photo["name"];
                 $jsonPhoto["id"] = $photo["id"];
-                $jsonPhoto["url"] = str_replace("\\", "/", $photo["url"]);
-                $photoPrevious = $photoConstruct->getPreviousPhotoByPage();
-                if (!empty($photoPrevious)) {
-                    $jsonPhoto["previousId"] = $photoPrevious["id"];
-                }
-                $photoNext = $photoConstruct->getNextPhotoByPage();
-                if (!empty($photoNext)) {
-                    $jsonPhoto["nextId"] = $photoNext["id"];
-                }
+                $photo["url"] = str_replace("\\", "/", $photo["url"]);
+                $jsonPhoto["url"] = str_replace('/assets/img/', 'http://' . $_SERVER['HTTP_HOST'] . '/assets/img/', $photo["url"]);
                 echo json_encode($jsonPhoto);
             }
+        }
+    }
+
+    public function previousNextPhoto($id_album = null, $id = null) {
+        header('Content-type: text/plain');
+        header("Access-Control-Allow-Origin: *");
+        if ($id != null && $id_album != null) {
+            $photoConstruct = new Photos();
+            $photoConstruct->setId($id);
+            $photoConstruct->setId_album($id_album);
+            $photoPrevious = $photoConstruct->getPreviousPhotoByPage();
+            if (!empty($photoPrevious)) {
+                $jsonPhoto["previousId"] = $photoPrevious["id"];
+            }
+            $photoNext = $photoConstruct->getNextPhotoByPage();
+            if (!empty($photoNext)) {
+                $jsonPhoto["nextId"] = $photoNext["id"];
+            }
+            echo json_encode($jsonPhoto);
+        }
+    }
+
+    public function nextPhoto($id_album = null, $id = null) {
+        header('Content-type: text/plain');
+        header("Access-Control-Allow-Origin: *");
+        if ($id != null && $id_album != null) {
+            $photoConstruct = new Photos();
+            $photoConstruct->setId($id);
+            $photoConstruct->setId_album($id_album);
+            $photoNext = $photoConstruct->getNextPhotoByPage();
+            if (!empty($photoNext)) {
+                $jsonPhoto["nextId"] = $photoNext["id"];
+            }
+            echo json_encode($jsonPhoto);
+        }
+    }
+
+    public function previousPhoto($id_album = null, $id = null) {
+        header('Content-type: text/plain');
+        header("Access-Control-Allow-Origin: *");
+        if ($id != null && $id_album != null) {
+            $photoConstruct = new Photos();
+            $photoConstruct->setId($id);
+            $photoConstruct->setId_album($id_album);
+            $photoPrevious = $photoConstruct->getPreviousPhotoByPage();
+            if (!empty($photoPrevious)) {
+                $jsonPhoto["previousId"] = $photoPrevious["id"];
+            }
+            echo json_encode($jsonPhoto);
         }
     }
 
