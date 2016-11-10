@@ -1,7 +1,7 @@
 <?php
 
 $host = 'localhost';
-$database = 'com_fges';
+$database = 'comfges';
 $user = 'root';
 $password = '';
 

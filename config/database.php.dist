@@ -1,5 +1,0 @@
-<?php
-
-$bd='comfges';
-define('DSN','mysql:host=clm02.evxonline.net;dbname='.$bd);
-$dbh = new PDO(DSN,'comfges','Ct@9ZwGWJ3');

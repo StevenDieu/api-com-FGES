@@ -39,6 +39,9 @@
 
                                 </ul>
                             </li>
+                            <li class="">
+                                <a href="https://pushbots.com/dashboard"><i class="fa fa-comment"></i> Notification </a>
+                            </li>
 
                         </ul>
                     </div>
