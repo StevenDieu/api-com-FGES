@@ -38,9 +38,7 @@ class FlashbackController extends Controller {
             (new helper())->deleteAndCreatDir($src);
         }
 
-
-
-        if (empty($this->success) && (isset($_POST["titre"]) && isset($_POST["description"]) && isset($_POST["active"]) && isset($_POST["date"]))) {
+        if ((isset($_POST["titre"]) && isset($_POST["description"]) && isset($_POST["active"]) && isset($_POST["date"]))) {
             $this->flashbackReturn = new Flashback();
             $this->flashbackReturn->setTitre($_POST["titre"]);
             $this->flashbackReturn->setDescription($_POST["description"]);

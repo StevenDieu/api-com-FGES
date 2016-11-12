@@ -64,23 +64,7 @@
                                                 ?>" />
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Actif <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <div id="gender" class="btn-group" data-toggle="buttons">
-                                                    <input type="radio" name="active" required="" value="1" data-parsley-multiple="actif" <?php
-                                                    if (isset($data["flashback"]) && $data["flashback"]["active"] == 1) {
-                                                        echo "checked";
-                                                    }
-                                                    ?>> Oui
-                                                    <input type="radio" name="active" required="" value="0" data-parsley-multiple="actif" <?php
-                                                    if ((isset($data["flashback"]) && $data["flashback"]["active"] == 0) || !isset($data["flashback"])) {
-                                                        echo "checked";
-                                                    }
-                                                    ?>> Non
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div class="form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Date de l'évènement <span class="required">*</span>
                                             </label>
@@ -90,6 +74,31 @@
                                                     echo $data["flashback"]["date_debut"];
                                                 }
                                                 ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Actif <span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div id="gender" class="btn-group" data-toggle="buttons">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="active" required="" value="1" data-parsley-multiple="actif" <?php
+                                                            if (isset($data["flashback"]) && $data["flashback"]["active"] == 1) {
+                                                                echo "checked";
+                                                            }
+                                                            ?>> Oui
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="active" required="" value="0" data-parsley-multiple="actif" <?php
+                                                            if ((isset($data["flashback"]) && $data["flashback"]["active"] == 0) || !isset($data["flashback"])) {
+                                                                echo "checked";
+                                                            }
+                                                            ?>> Non
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="ln_solid"></div>

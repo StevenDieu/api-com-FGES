@@ -2,9 +2,13 @@
 
 class User extends Database {
 
+    private $id;
     private $email;
     private $motdepasse;
-    private $role;
+    private $avenir;
+    private $lesphotos;
+    private $flashback;
+    private $admin;
 
     function __construct() {
         parent::__construct();
@@ -13,24 +17,27 @@ class User extends Database {
     public function addUser() {
         $motdepasse = md5($this->motdepasse);
 
-        $stmt = $this->dbh->prepare("INSERT INTO user VALUES (?,?,?)");
+        $stmt = $this->dbh->prepare("INSERT INTO user VALUES (null,?,?,?,?,?,?)");
 
         $stmt->bindParam(1, $this->email);
         $stmt->bindParam(2, $motdepasse);
-        $stmt->bindParam(3, $this->role);
+        $stmt->bindParam(3, $this->avenir);
+        $stmt->bindParam(4, $this->lesphotos);
+        $stmt->bindParam(5, $this->flashback);
+        $stmt->bindParam(6, $this->admin);
 
         $stmt->execute();
 
-        return $this->dbh->lastInsertId();
+        $this->id = $this->dbh->lastInsertId();
     }
 
     public function existUser() {
         $stmt = $this->dbh->prepare('select email from user where email = ?');
-        
+
         $stmt->bindParam(1, $this->email);
-        
+
         $stmt->execute();
-        if($stmt->rowCount()) {
+        if ($stmt->rowCount() > 0) {
             return true;
         } else {
             return false;
@@ -114,18 +121,44 @@ class User extends Database {
         $this->motdepasse = $motdepasse;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRole() {
-        return $this->role;
+    function getAvenir() {
+        return $this->avenir;
     }
 
-    /**
-     * @param mixed $role
-     */
-    public function setRole($role) {
-        $this->role = $role;
+    function getLesphotos() {
+        return $this->lesphotos;
+    }
+
+    function getFlashback() {
+        return $this->flashback;
+    }
+
+    function getAdmin() {
+        return $this->admin;
+    }
+
+    function setAvenir($avenir) {
+        $this->avenir = $avenir;
+    }
+
+    function setLesphotos($lesphotos) {
+        $this->lesphotos = $lesphotos;
+    }
+
+    function setFlashback($flashback) {
+        $this->flashback = $flashback;
+    }
+
+    function setAdmin($admin) {
+        $this->admin = $admin;
+    }
+
+    function getId() {
+        return $this->id;
+    }
+
+    function setId($id) {
+        $this->id = $id;
     }
 
 }

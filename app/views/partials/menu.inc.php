@@ -40,7 +40,17 @@
                                 </ul>
                             </li>
                             <li class="">
-                                <a href="https://pushbots.com/dashboard"><i class="fa fa-comment"></i> Notification </a>
+                                <a><i class="fa fa-user"></i> Utilisateur <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="/utilisateur/liste">Liste utilisateur</a></li>
+                                    <li><a href="/utilisateur/creation">Création utilisateur</a></li>
+                                    <li><a href="/utilisateur/modification">Modification utilisateur</a></li>
+                                    <li><a href="/utilisateur/suppression">Suppression utilisateur</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="">
+                                <a href="/notification"><i class="fa fa-comment"></i> Notification </a>
                             </li>
 
                         </ul>
