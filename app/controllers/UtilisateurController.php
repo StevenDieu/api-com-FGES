@@ -87,84 +87,104 @@ class UtilisateurController extends Controller {
     }
 
     public function modification($id = null, $created = false) {
-        $utilisateurs = null;
-        $utilisateur = null;
+        $users = null;
+        $user = null;
+        $userController = new User();
 
         if ($created == true) {
             $this->success = "L'utilisateur à bien été créé.";
         }
-        if ((!empty($_POST))) {
-            if ((isset($_POST["email"]) && !empty($_POST["email"])) &&
-                    (isset($_POST["motdepasse"]) && !empty($_POST["motdepasse"])) &&
-                    (
-                    isset($_POST["avenir"]) && !empty($_POST["avenir"]) ||
-                    isset($_POST["lesphotos"]) && !empty($_POST["lesphotos"]) ||
-                    isset($_POST["flashback"]) && !empty($_POST["flashback"]) ||
-                    isset($_POST["admin"]) && !empty($_POST["admin"])
-                    )
-            ) {
-                $user->setEmail($_POST["email"]);
-                if (!$user->existUser()) {
-                    $user->setMotdepasse($_POST["motdepasse"]);
-                    if (isset($_POST["avenir"])) {
-                        $user->setAvenir($_POST["avenir"]);
-                    } else {
-                        $user->setAvenir('0');
-                    }
-                    if (isset($_POST["lesphotos"])) {
-                        $user->setLesphotos($_POST["lesphotos"]);
-                    } else {
-                        $user->setLesphotos('0');
-                    }
-                    if (isset($_POST["flashback"])) {
-                        $user->setFlashback($_POST["flashback"]);
-                    } else {
-                        $user->setFlashback('0');
-                    }
-                    if (isset($_POST["admin"])) {
-                        $user->setAdmin($_POST["admin"]);
-                    } else {
-                        $user->setAdmin('0');
-                    }
+        if (isset($id) && !empty($id)) {
+            $userController->setId($id);
+            
+            if ((!empty($_POST))) {
+                if ((isset($_POST["email"]) && !empty($_POST["email"])) &&
+                        isset($_POST["motdepasse"]) &&
+                        (
+                        isset($_POST["avenir"]) && !empty($_POST["avenir"]) ||
+                        isset($_POST["lesphotos"]) && !empty($_POST["lesphotos"]) ||
+                        isset($_POST["flashback"]) && !empty($_POST["flashback"]) ||
+                        isset($_POST["admin"]) && !empty($_POST["admin"])
+                        )
+                ) {
+                    $userController->setEmail($_POST["email"]);
+                    if ($userController->existUser()) {
+                        
+                        if (isset($_POST["avenir"])) {
+                            $userController->setAvenir($_POST["avenir"]);
+                        } else {
+                            $userController->setAvenir('0');
+                        }
+                        if (isset($_POST["lesphotos"])) {
+                            $userController->setLesphotos($_POST["lesphotos"]);
+                        } else {
+                            $userController->setLesphotos('0');
+                        }
+                        if (isset($_POST["flashback"])) {
+                            $userController->setFlashback($_POST["flashback"]);
+                        } else {
+                            $userController->setFlashback('0');
+                        }
+                        if (isset($_POST["admin"])) {
+                            $userController->setAdmin($_POST["admin"]);
+                        } else {
+                            $userController->setAdmin('0');
+                        }
 
-                    $user->addUser();
-                    $id = $user->getId();
+                        if (isset($_POST["motdepasse"]) && !empty($_POST["motdepasse"])) {
+                            $userController->setMotdepasse($_POST["motdepasse"]);
+                            $userController->updateUser();
+                        }else{
+                            $userController->updateUserWithoutPassword();
+                        }
+                        
 
-                    if ($id > 0) {
-                        header('Location: /utilisateur/modification/' . $id . '/true');
+                        if ($id > 0) {
+                            $this->success = "Utilisateur modifié.";
+                        } else {
+                            $this->error = "Il y a une erreur dans la modification d'un utilisateur.";
+                        }
                     } else {
-                        $this->error = "Il y a une erreur dans l'ajout d'un utilisateur.";
+                        $this->error = "L'utilisateur n'existe pas.";
                     }
                 } else {
-                    $this->error = "L'utilisateur existe déja.";
+                    $this->error = "Tous les champs sont obligatoires.";
                 }
-            } else {
-                $this->error = "Tous les champs sont obligatoires.";
             }
             
-            $flashback = $flashbackConstruct->getFlashbackById();
-            $dateTime = new DateTime($flashback["date_debut"]);
-            $flashback["date_debut"] = $dateTime->format('m/d/Y');
-            $froala = true;
-            
+            $user = $userController->getUserById();
+            $user["isUser"] = true;
         } else {
-            $flashbacks = (new Flashback())->getAllFlashback();
+            $users = $userController->getAllUser();
         }
-        $arrayJs = array("flashback/modification");
+        $arrayJs = array("utilisateur/modification");
         $this->render($this->dirView . '/modification', array(
-            'title' => 'Modification Flashback',
+            'title' => 'Modification User',
             'error' => $this->error,
-            'success' => $this->success,
             'arrayJs' => $arrayJs,
-            'flashbacks' => $flashbacks,
-            'flashback' => $flashback,
-            'froala' => $froala
+            'success' => $this->success,
+            'utilisateurs' => $users,
+            'utilisateur' => $user,
         ));
     }
 
     public function suppression() {
-        $utilisateurConstruct = new Utilisateur();
+        $utilisateurConstruct = new User();
 
+         if ((!empty($_POST))) {
+            if ((isset($_POST["idUser"]) && !empty($_POST["idUser"]))) {
+
+                $utilisateurConstruct->setId($_POST["idUser"]);
+                if ($utilisateurConstruct->deleteUserById()) {
+                    $this->success = "L'utilisateur à bien été supprimé.";
+                } else {
+                    $this->error = "Cette utilisateur n'existe pas";
+                }
+            } else {
+                $this->error = "Tous les champs sont obligatoires.";
+            }
+        }
+        
         $utilisateurs = $utilisateurConstruct->getAllUser();
 
         $this->render($this->dirView . '/suppresion', array(

@@ -31,6 +31,51 @@ class User extends Database {
         $this->id = $this->dbh->lastInsertId();
     }
 
+    public function updateUserWithoutPassword(){
+        $stmt = $this->dbh->prepare("UPDATE user
+        SET email = ?, avenir = ?, lesphotos = ?, flashback = ?, admin = ?
+        WHERE id = ?");
+
+        $stmt->bindParam(1, $this->email);
+        $stmt->bindParam(2, $this->avenir);
+        $stmt->bindParam(3, $this->lesphotos);
+        $stmt->bindParam(4, $this->flashback);
+        $stmt->bindParam(5, $this->admin);
+        $stmt->bindParam(6, $this->id);
+
+        $count = $stmt->execute();
+
+        if ($count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function updateUser() {
+        $motdepasse = md5($this->motdepasse);
+
+        $stmt = $this->dbh->prepare("UPDATE user
+        SET email = ?, motdepasse = ?, avenir = ?, lesphotos = ?, flashback = ?, admin = ?
+        WHERE id = ?");
+
+        $stmt->bindParam(1, $this->email);
+        $stmt->bindParam(2, $motdepasse);
+        $stmt->bindParam(3, $this->avenir);
+        $stmt->bindParam(4, $this->lesphotos);
+        $stmt->bindParam(5, $this->flashback);
+        $stmt->bindParam(6, $this->admin);
+        $stmt->bindParam(7, $this->id);
+
+        $count = $stmt->execute();
+
+        if ($count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function existUser() {
         $stmt = $this->dbh->prepare('select email from user where email = ?');
 
@@ -78,16 +123,43 @@ class User extends Database {
         }
     }
 
-    public function getUserIdById() {
+    public function getUserById() {
         $stmt = $this->dbh->prepare('SELECT * 
                 FROM user 
-                WHERE email = ?');
+                WHERE id = ?');
 
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
 
         if (count($stmt)) {
             return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
+    
+    public function getAllUser() {
+        $stmt = $this->dbh->prepare('SELECT * FROM user');
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll();
+        } else {
+            return false;
+        }
+    }
+    
+    public function deleteUserById() {
+
+        $stmt = $this->dbh->prepare('DELETE FROM user
+        WHERE id = ?');
+
+        $stmt->bindParam(1, $this->id);
+        $count = $stmt->execute();
+
+        if ($count > 0) {
+            return true;
         } else {
             return false;
         }

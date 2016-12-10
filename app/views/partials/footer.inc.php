@@ -320,6 +320,7 @@ if (isset($data["arrayJs"])) {
     }
 }
 ?>
+<script src="/assets/js/main.js"></script>
 
 </body>
 </html>

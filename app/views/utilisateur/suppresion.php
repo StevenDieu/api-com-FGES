@@ -3,7 +3,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Suppresion Flashback</h3>
+                <h3>Suppresion Utilisateur</h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -25,7 +25,7 @@
                 <?php } ?>
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Suppresion d'un flashback</h2>
+                        <h2>Suppresion d'un utilisateur</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                         </ul>
@@ -33,22 +33,24 @@
                     </div>
                     <div class="x_content">
                         <br>
-                        <form action="/flashback/suppression" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post">
+                        <form action="/utilisateur/suppression" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post">
 
                             <div class="form-group">
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Flashback
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Utilisateur
                                     </label>
                                     <div  class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="idFlashback" id="selectFlashback" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                                            <option value="-1">Choisir un flashback</option>
+                                        <select name="idUser" id="selectFlashback" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                            <option value="-1">Choisir un utilisateur</option>
                                             <?php
-                                            if (isset($data["flashbacks"]) && !empty($data["flashbacks"])) {
-                                                foreach ($data["flashbacks"] as $flashbacks) {
-                                                    ?>
-                                                    <option value="<?php echo $flashbacks["id"]; ?>"><?php echo $flashbacks["titre"]; ?></option>
-                                                    <?php
+                                            if (isset($data["utilisateurs"]) && !empty($data["utilisateurs"])) {
+                                                foreach ($data["utilisateurs"] as $utilisateurs) {
+                                                    if($_SESSION["LOGIN"]["id"] != $utilisateurs["id"]){
+                                                        ?>
+                                                        <option value="<?php echo $utilisateurs["id"]; ?>"><?php echo $utilisateurs["email"]; ?></option>
+                                                        <?php
+                                                    }
                                                 }
                                             }
                                             ?>

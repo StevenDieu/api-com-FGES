@@ -87,7 +87,7 @@
                                     <div class="ln_solid"></div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                            <a type="submit" href="/lesphotos/modification" class="btn btn-success">Retour</a>
+                                            <a type="submit" href="javascript.void(0)" class="btn btn-success return-page">Retour</a>
                                             <input type="submit" class="btn btn-success" value="Modifier">
                                         </div>
                                     </div>

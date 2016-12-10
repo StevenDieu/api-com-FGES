@@ -16,7 +16,7 @@
                         <strong>Attention!</strong> <?php echo $data['error'] ?>
                     </div>
                 <?php } ?>
-                <?php if (isset($data["success"]) && isset($data["flashback"]["id"]) && !empty($data["flashback"]["id"])) { ?>
+                <?php if (isset($data["success"]) && isset($data["utilisateur"]["id"]) && !empty($data["utilisateur"]["id"])) { ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                         </button>
@@ -36,30 +36,21 @@
 
                         <?php if (isset($data["utilisateur"]) && !empty($data["utilisateur"])) { ?>
                             <?php if (isset($data["utilisateur"]["id"]) && !empty($data["utilisateur"]["id"])) { ?>
-
                                 <form id="form-froala" action="/utilisateur/modification/<?php echo $data["utilisateur"]["id"]; ?>" method="post" class="form-horizontal form-label-left" >
-
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Email <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="email" name="email" value="<?php
-                                            if (isset($data["utilisateur"])) {
-                                                echo $data["utilisateur"]->getEmail();
-                                            }
-                                            ?>" class="form-control col-md-7 col-xs-12" required="">
+                                            <input type="hidden" name="email" value="<?php echo $data["utilisateur"]["email"]; ?>" />
+                                            <label class="form-control col-md-7 col-xs-12" for="first-name"><?php echo $data["utilisateur"]["email"]; ?></label>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Mot de passe <span class="required">*</span>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nouveau mot de passe (facultatif)
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="password" name="motdepasse" value="<?php
-                                            if (isset($data["utilisateur"])) {
-                                                echo $data["utilisateur"]->getMotdepasse();
-                                            }
-                                            ?>" class="form-control col-md-7 col-xs-12" required="">
+                                            <input type="password" name="motdepasse" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     </div>
 
@@ -72,7 +63,7 @@
                                                 <label>
                                                     <input type="checkbox" name="avenir" value="1"
                                                     <?php
-                                                    if (isset($data["utilisateur"]) && $data["utilisateur"]->getAvenir() == 1) {
+                                                    if (isset($data["utilisateur"]) && $data["utilisateur"]["avenir"] == 1) {
                                                         echo "checked";
                                                     }
                                                     ?>
@@ -83,7 +74,7 @@
                                                 <label>
                                                     <input type="checkbox" name="lesphotos" value="1"
                                                     <?php
-                                                    if (isset($data["utilisateur"]) && $data["utilisateur"]->getLesphotos() == 1) {
+                                                    if (isset($data["utilisateur"]) && $data["utilisateur"]["lesphotos"] == 1) {
                                                         echo "checked";
                                                     }
                                                     ?>
@@ -94,7 +85,7 @@
                                                 <label>
                                                     <input type="checkbox" name="flashback" value="1"
                                                     <?php
-                                                    if (isset($data["utilisateur"]) && $data["utilisateur"]->getFlashback() == 1) {
+                                                    if (isset($data["utilisateur"]) && $data["utilisateur"]["flashback"] == 1) {
                                                         echo "checked";
                                                     }
                                                     ?>
@@ -105,7 +96,7 @@
                                                 <label>
                                                     <input type="checkbox" name="admin" value="1"
                                                     <?php
-                                                    if (isset($data["utilisateur"]) && $data["utilisateur"]->getAdmin() == 1) {
+                                                    if (isset($data["utilisateur"]) && $data["utilisateur"]["admin"] == 1) {
                                                         echo "checked";
                                                     }
                                                     ?>
@@ -119,7 +110,8 @@
                                     <div class="ln_solid"></div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                            <input type="submit" class="btn btn-success" value="Ajouter">
+                                            <a type="submit" href="javascript.void(0)" class="btn btn-success return-page">Retour</a>
+                                            <input type="submit" class="btn btn-success" value="Modifier">
                                         </div>
                                     </div>
 
@@ -129,7 +121,7 @@
                                 <div class="alert alert-warning alert-dismissible fade in" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                     </button>
-                                    <strong>Attention!</strong> Ce flasback n'existe pas ! Pour en créer un cliquer <a href="/flashback/creation" >ici</a>
+                                    <strong>Attention!</strong> Cette utilisateur n'existe pas ! Pour en créer un cliquer <a href="/utilisateur/creation" >ici</a>
                                 </div>
                             <?php } ?>
                         <?php } else { ?>
