@@ -59,6 +59,22 @@
             console.log(start.toISOString(), end.toISOString(), label);
         });
     });
+    $(document).ready(function () {
+        $('#datedebut').daterangepicker({
+            singleDatePicker: true,
+            calender_style: "picker_4"
+        }, function (start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+    });
+    $(document).ready(function () {
+        $('#datefin').daterangepicker({
+            singleDatePicker: true,
+            calender_style: "picker_4"
+        }, function (start, end, label) {
+            console.log(start.toISOString(), end.toISOString(), label);
+        });
+    });
 </script>
 <!-- /bootstrap-daterangepicker -->
 
@@ -304,10 +320,10 @@
 
     <!-- Initialize the editor. -->
     <script>
-    $(function () {
-        $('#edit').froalaEditor()
-        $(".fr-wrapper,.show-placeholder").next().remove()
-    });
+        $(function () {
+            $('#edit').froalaEditor()
+            $(".fr-wrapper,.show-placeholder").next().remove()
+        });
     </script>
 <?php } ?>
 

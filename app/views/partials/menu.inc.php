@@ -17,7 +17,10 @@
                             <li class="">
                                 <a><i class="fa fa-plus"></i> A venir ... <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="/avenir">Gestion a venir</a></li>
+                                    <li><a href="/avenir/liste">Liste à venir</a></li>
+                                    <li><a href="/avenir/creation">Création à venir</a></li>
+                                    <li><a href="/avenir/modification">Modification à venir</a></li>
+                                    <li><a href="/avenir/suppression">Suppression à venir</a></li>
                                 </ul>
                             </li>
                             <li class="">
@@ -36,7 +39,6 @@
                                     <li><a href="/flashback/creation">Création flashback</a></li>
                                     <li><a href="/flashback/modification">Modification flashback</a></li>
                                     <li><a href="/flashback/suppression">Suppression flashback</a></li>
-
                                 </ul>
                             </li>
                             <li class="">
