@@ -2,7 +2,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Ajou/Suppresion des photos dans un album</h3>
+                <h3>Ajou/Suppression des photos dans un album</h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -24,7 +24,7 @@
                 <?php } ?>
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Ajout/Suppresion des photos dans un album</h2>
+                        <h2>Ajout/Suppression des photos dans un album</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                         </ul>

@@ -49,7 +49,9 @@
                                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>                                                
                                                         <?php } ?>
                                                     </td>
-                                                    <td class=" last center-text"><a href="/flashback/liste/<?php echo $flashback["id"] ?>">Visionner</a>
+                                                    <td class=" last center-text">
+                                                        <a href="/flashback/liste/<?php echo $flashback["id"] ?>">Visionner </a>&nbsp;&nbsp;
+                                                        <a href="/flashback/modification/<?php echo $flashback["id"] ?>"> Modifier</a>
                                                     </td>
                                                 </tr>
                                             <?php } ?>
@@ -88,7 +90,7 @@
                             <div class="alert alert-warning alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                <strong>Attention!</strong> Aucun flashback n'existe ! Pour en créer un cliquer <a href="/flashback/creation" >ici</a>
+                                <strong>Attention!</strong> Aucun flashback existe ! Pour en créer un cliquer <a href="/flashback/creation" >ici</a>
                             </div>
                         <?php } ?>
 

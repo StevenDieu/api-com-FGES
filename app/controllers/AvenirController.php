@@ -24,11 +24,17 @@ class AvenirController extends Controller {
                     (isset($_POST["lieu"]) && !empty($_POST["lieu"])) &&
                     (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0))) {
 
+                $dateTimeDebut = new DateTime($_POST["dateDebut"]);
+                $dateTimeFin = new DateTime($_POST["dateFin"]);
+
+                $dateTimeDebut->setTime($_POST["dateDebutHeure"], $_POST["dateDebutMinute"], 0);
+                $dateTimeFin->setTime($_POST["dateFinHeure"], $_POST["dateFinMinute"], 0);
+
                 $avenir->setTitre($_POST["titre"]);
                 $avenir->setDescription($_POST["description"]);
                 $avenir->setActive($_POST["active"]);
-                $avenir->setDateDebut($_POST["dateDebut"]);
-                $avenir->setDateFin($_POST["dateFin"]);
+                $avenir->setDateDebut($dateTimeDebut->format('Y-m-d H:i:s'));
+                $avenir->setDateFin($dateTimeFin->format('Y-m-d H:i:s'));
                 $avenir->setLieu($_POST["lieu"]);
 
                 $avenir->addAvenir();
@@ -81,11 +87,17 @@ class AvenirController extends Controller {
                         (isset($_POST["lieu"]) && !empty($_POST["lieu"])) &&
                         (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0))) {
 
+                    $dateTimeDebut = new DateTime($_POST["dateDebut"]);
+                    $dateTimeFin = new DateTime($_POST["dateFin"]);
+
+                    $dateTimeDebut->setTime($_POST["dateDebutHeure"], $_POST["dateDebutMinute"], 0);
+                    $dateTimeFin->setTime($_POST["dateFinHeure"], $_POST["dateFinMinute"], 0);
+
                     $avenirConstruct->setTitre($_POST["titre"]);
                     $avenirConstruct->setDescription($_POST["description"]);
                     $avenirConstruct->setActive($_POST["active"]);
-                    $avenirConstruct->setDateDebut($_POST["dateDebut"]);
-                    $avenirConstruct->setDateFin($_POST["dateFin"]);
+                    $avenirConstruct->setDateDebut($dateTimeDebut->format('Y-m-d H:i:s'));
+                    $avenirConstruct->setDateFin($dateTimeFin->format('Y-m-d H:i:s'));
                     $avenirConstruct->setLieu($_POST["lieu"]);
 
                     if ($avenirConstruct->updateAvenir()) {
@@ -102,13 +114,18 @@ class AvenirController extends Controller {
             $dateTimeFin = new DateTime($avenir["date_fin"]);
 
             $avenir["date_debut"] = $dateTimeDebut->format('m/d/Y');
+            $avenir["date_debut_heure"] = $dateTimeDebut->format('H');
+            $avenir["date_debut_minute"] = $dateTimeDebut->format('i');
+
             $avenir["date_fin"] = $dateTimeFin->format('m/d/Y');
+            $avenir["date_fin_heure"] = $dateTimeFin->format('H');
+            $avenir["date_fin_minute"] = $dateTimeFin->format('i');
         } else {
             $avenirs = $avenirConstruct->getAllAvenir();
         }
         $arrayJs = array("avenir/modification");
         $this->render($this->dirView . '/modification', array(
-            'title' => 'Modification Flashback',
+            'title' => 'Modification à venir',
             'error' => $this->error,
             'success' => $this->success,
             'arrayJs' => $arrayJs,
@@ -118,11 +135,38 @@ class AvenirController extends Controller {
     }
 
     public function suppression() {
+        $avenirConstruct = new Avenir();
+
+        if ((!empty($_POST))) {
+            if ((isset($_POST["idAvenir"]) && !empty($_POST["idAvenir"]))) {
+
+                $avenirConstruct->setId($_POST["idAvenir"]);
+                if ($avenirConstruct->deleteAvenirById()) {
+                    $this->success = "Ce \"à venir\" à bien été supprimé.";
+                } else {
+                    $this->error = "Ce \"à venir\" n'existe pas";
+                }
+            } else {
+                $this->error = "Tous les champs sont obligatoires.";
+            }
+        }
+        $avenirs = $avenirConstruct->getAllAvenir();
+
         $this->render($this->dirView . '/suppression', array(
-            'title' => 'Suppresion "A venir"',
+            'title' => 'Suppression à venir',
             'error' => $this->error,
             'success' => $this->success,
-            'avenir' => null //$flashbacks
+            'avenirs' => $avenirs
+        ));
+    }
+
+    public function liste() {
+
+        $avenirs = (new Avenir())->getAllAvenir();
+        
+        $this->render($this->dirView . '/liste', array(
+            'title' => 'Liste dess avenirs',
+            'avenirs' => $avenirs,
         ));
     }
 

@@ -187,8 +187,8 @@ class UtilisateurController extends Controller {
         
         $utilisateurs = $utilisateurConstruct->getAllUser();
 
-        $this->render($this->dirView . '/suppresion', array(
-            'title' => 'Suppresion Utilisateur',
+        $this->render($this->dirView . '/suppression', array(
+            'title' => 'Suppression Utilisateur',
             'error' => $this->error,
             'success' => $this->success,
             'utilisateurs' => $utilisateurs

@@ -62,23 +62,52 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Date de début <span class="required">*</span>
                                         </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
                                             <input id="datedebut" name="dateDebut" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" value="<?php
                                             if (isset($data["avenir"])) {
                                                 echo $data["avenir"]["date_debut"];
                                             }
                                             ?>">
                                         </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
+                                            <select class="form-control col-md-7 col-xs-12" name="dateDebutHeure">
+                                                <?php for ($hours = 0; $hours <= 23; $hours++) { ?>
+                                                    <option value="<?php echo $hours; ?>" <?php if (isset($data["avenir"]["date_debut_heure"]) && $data["avenir"]["date_debut_heure"] == $hours) { ?> selected <?php } ?>><?php echo $hours; ?> Heure </option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
+                                            <select class="form-control col-md-7 col-xs-12" name="dateDebutMinute">
+                                                <?php for ($minute = 00; $minute <= 59; $minute++) { ?>
+                                                    <option value="<?php echo $minute; ?>" <?php if (isset($data["avenir"]["date_debut_minute"]) && intval($data["avenir"]["date_debut_minute"]) == $minute) { ?> selected <?php } ?>><?php echo $minute; ?> Minute </option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Date de fin <span class="required">*</span>
                                         </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
                                             <input id="datefin" name="dateFin" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" value="<?php
                                             if (isset($data["avenir"])) {
                                                 echo $data["avenir"]["date_fin"];
                                             }
                                             ?>">
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
+                                            <select class="form-control col-md-7 col-xs-12" name="dateFinMinute">
+                                                <?php for ($hours = 0; $hours <= 23; $hours++) { ?>
+                                                    <option value="<?php echo $hours; ?>" <?php if (isset($data["avenir"]["date_fin_heure"]) && $data["avenir"]["date_fin_heure"] == $hours) { ?> selected <?php } ?>><?php echo $hours; ?> Heure </option>
+                                                <?php }
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
+                                            <select class="form-control col-md-7 col-xs-12" name="dateFinHeure">
+                                                <?php for ($minute = 00; $minute <= 59; $minute++) { ?>
+                                                    <option value="<?php echo $minute; ?>" <?php if (isset($data["avenir"]["date_fin_minute"]) && $data["avenir"]["date_fin_minute"] == $minute) { ?> selected <?php } ?>><?php echo $minute; ?> Minute </option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">

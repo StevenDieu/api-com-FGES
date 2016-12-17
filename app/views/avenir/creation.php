@@ -73,7 +73,6 @@
                                         <?php for ($minute = 00; $minute <= 59; $minute++) { ?>
                                             <option value="<?php echo $minute; ?>"><?php echo $minute; ?> Minute </option>
                                         <?php } ?>
-
                                     </select>
                                 </div>
                             </div>
@@ -88,19 +87,18 @@
                                     ?>">
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-12">
-
-                                    <select class="form-control col-md-7 col-xs-12" name="dateDebutMin">
+                                    <select class="form-control col-md-7 col-xs-12" name="dateFinMinute">
                                         <?php for ($hours = 0; $hours <= 23; $hours++) { ?>
                                             <option value="<?php echo $hours; ?>"><?php echo $hours; ?> Heure </option>
-                                        <?php } ?>
+                                        <?php }
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-12">
-                                    <select class="form-control col-md-7 col-xs-12" name="dateDebutHours">
+                                    <select class="form-control col-md-7 col-xs-12" name="dateFinHeure">
                                         <?php for ($minute = 00; $minute <= 59; $minute++) { ?>
                                             <option value="<?php echo $minute; ?>"><?php echo $minute; ?> Minute </option>
                                         <?php } ?>
-
                                     </select>
                                 </div>
                             </div>

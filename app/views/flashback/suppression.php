@@ -3,7 +3,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Suppresion d'un album</h3>
+                <h3>Suppression Flashback</h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -25,7 +25,7 @@
                 <?php } ?>
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Suppresion d'un album</h2>
+                        <h2>Suppression d'un flashback</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                         </ul>
@@ -33,21 +33,21 @@
                     </div>
                     <div class="x_content">
                         <br>
-                        <form action="/lesphotos/suppression" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post">
+                        <form action="/flashback/suppression" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post">
 
                             <div class="form-group">
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Album
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Flashback
                                     </label>
                                     <div  class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="idAlbum" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                                            <option value="-1">Choisir un Album</option>
+                                        <select name="idFlashback" id="selectFlashback" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                            <option value="-1">Choisir un flashback</option>
                                             <?php
-                                            if (isset($data["albums"]) && !empty($data["albums"])) {
-                                                foreach ($data["albums"] as $album) {
+                                            if (isset($data["flashbacks"]) && !empty($data["flashbacks"])) {
+                                                foreach ($data["flashbacks"] as $flashbacks) {
                                                     ?>
-                                                    <option value="<?php echo $album["id"]; ?>"><?php echo $album["titre"]; ?></option>
+                                                    <option value="<?php echo $flashbacks["id"]; ?>"><?php echo $flashbacks["titre"]; ?></option>
                                                     <?php
                                                 }
                                             }

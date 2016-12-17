@@ -15,11 +15,7 @@ class Avenir extends Database {
     }
 
     public function addAvenir() {
-        $dateTimeDebut = new DateTime($this->dateDebut);
-        $dateTimeFin = new DateTime($this->dateFin);
 
-        $this->dateDebut = $dateTimeDebut->format('Y-m-d H:i:s');
-        $this->dateFin = $dateTimeFin->format('Y-m-d H:i:s');
 
         $stmt = $this->dbh->prepare("INSERT INTO a_venir VALUES (null,?,?,?,?,?,?)");
 
@@ -128,9 +124,9 @@ class Avenir extends Database {
         }
     }
 
-    public function deleteFlashbackById() {
+    public function deleteAvenirById() {
 
-        $stmt = $this->dbh->prepare('DELETE FROM flashback
+        $stmt = $this->dbh->prepare('DELETE FROM a_venir
         WHERE id = ?');
 
         $stmt->bindParam(1, $this->id);

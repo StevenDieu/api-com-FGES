@@ -144,8 +144,8 @@ class LesphotosController extends Controller {
         }
         $albums = $albumConstruct->getAllAlbum();
 
-        $this->render($this->dirView . '/suppresion', array(
-            'title' => "Suppresion d'un album",
+        $this->render($this->dirView . '/suppression', array(
+            'title' => "Suppression d'un album",
             'error' => $this->error,
             'success' => $this->success,
             'albums' => $albums

@@ -125,8 +125,8 @@ class FlashbackController extends Controller {
         }
         $flashbacks = $flashbackConstruct->getAllFlashback();
 
-        $this->render($this->dirView . '/suppresion', array(
-            'title' => 'Suppresion Flashback',
+        $this->render($this->dirView . '/suppression', array(
+            'title' => 'Suppression Flashback',
             'error' => $this->error,
             'success' => $this->success,
             'flashbacks' => $flashbacks

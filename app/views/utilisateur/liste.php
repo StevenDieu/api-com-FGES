@@ -28,10 +28,10 @@
                                         <thead>
                                             <tr class="headings">
                                                 <th class="column-title">Email </th>
-                                                <th class="column-title">Droit d'accés A venir </th>
-                                                <th class="column-title">Droit d'accés Les photos </th>
-                                                <th class="column-title">Droit d'accés Flashback </th>
-                                                <th class="column-title">Droit d'accés Admin </th>
+                                                <th class="column-title center-text">Droit d'accés A venir </th>
+                                                <th class="column-title center-text">Droit d'accés Les photos </th>
+                                                <th class="column-title center-text">Droit d'accés Flashback </th>
+                                                <th class="column-title center-text">Droit d'accés Admin </th>
                                                 <th class="column-title no-link last center-text"><span class="nobr">Action</span>
                                             </tr>
                                         </thead>
@@ -81,7 +81,7 @@
                             <div class="alert alert-warning alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                                 </button>
-                                <strong>Attention!</strong> Aucun utilisateurs n'existent ! Pour en créer un cliquer <a href="/utilisateur/creation" >ici</a>
+                                <strong>Attention!</strong> Aucun utilisateurs existent ! Pour en créer un cliquer <a href="/utilisateur/creation" >ici</a>
                             </div>
                         <?php } ?>
 
