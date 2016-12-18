@@ -34,7 +34,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="first-name" name="titre" value="<?php
                                     if (isset($data["avenir"])) {
-                                        echo $data["avenir"]->getTitre();
+                                        echo $data["avenir"]["titre"];
                                     }
                                     ?>" class="form-control col-md-7 col-xs-12" required="">
                                 </div>
@@ -45,7 +45,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <textarea id="edit" class="form-control col-md-7 col-xs-12" name="description"><?php
                                         if (isset($data["avenir"])) {
-                                            echo $data["avenir"]->getDescription();
+                                            echo $data["avenir"]["description"];
                                         }
                                         ?></textarea>
                                 </div>
@@ -56,22 +56,21 @@
                                 <div class="col-md-2 col-sm-2 col-xs-12">
                                     <input id="datedebut" name="dateDebut" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" value="<?php
                                     if (isset($data["avenir"])) {
-                                        echo $data["avenir"]->getDateDebut();
+                                        echo $data["avenir"]["date_debut"];
                                     }
                                     ?>">
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-12">
-
                                     <select class="form-control col-md-7 col-xs-12" name="dateDebutHeure">
                                         <?php for ($hours = 0; $hours <= 23; $hours++) { ?>
-                                            <option value="<?php echo $hours; ?>"><?php echo $hours; ?> Heure </option>
+                                            <option value="<?php echo $hours; ?>" <?php if (isset($data["avenir"]["date_debut_heure"]) && $data["avenir"]["date_debut_heure"] == $hours) { ?> selected <?php } ?>><?php echo $hours; ?> Heure </option>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-12">
                                     <select class="form-control col-md-7 col-xs-12" name="dateDebutMinute">
                                         <?php for ($minute = 00; $minute <= 59; $minute++) { ?>
-                                            <option value="<?php echo $minute; ?>"><?php echo $minute; ?> Minute </option>
+                                            <option value="<?php echo $minute; ?>" <?php if (isset($data["avenir"]["date_debut_minute"]) && intval($data["avenir"]["date_debut_minute"]) == $minute) { ?> selected <?php } ?>><?php echo $minute; ?> Minute </option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -82,14 +81,14 @@
                                 <div class="col-md-2 col-sm-2 col-xs-12">
                                     <input id="datefin" name="dateFin" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" value="<?php
                                     if (isset($data["avenir"])) {
-                                        echo $data["avenir"]->getDateFin();
+                                        echo $data["avenir"]["date_fin"];
                                     }
                                     ?>">
                                 </div>
                                 <div class="col-md-2 col-sm-2 col-xs-12">
                                     <select class="form-control col-md-7 col-xs-12" name="dateFinMinute">
                                         <?php for ($hours = 0; $hours <= 23; $hours++) { ?>
-                                            <option value="<?php echo $hours; ?>"><?php echo $hours; ?> Heure </option>
+                                            <option value="<?php echo $hours; ?>" <?php if (isset($data["avenir"]["date_fin_heure"]) && $data["avenir"]["date_fin_heure"] == $hours) { ?> selected <?php } ?>><?php echo $hours; ?> Heure </option>
                                         <?php }
                                         ?>
                                     </select>
@@ -97,7 +96,7 @@
                                 <div class="col-md-2 col-sm-2 col-xs-12">
                                     <select class="form-control col-md-7 col-xs-12" name="dateFinHeure">
                                         <?php for ($minute = 00; $minute <= 59; $minute++) { ?>
-                                            <option value="<?php echo $minute; ?>"><?php echo $minute; ?> Minute </option>
+                                            <option value="<?php echo $minute; ?>" <?php if (isset($data["avenir"]["date_fin_minute"]) && $data["avenir"]["date_fin_minute"] == $minute) { ?> selected <?php } ?>><?php echo $minute; ?> Minute </option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -108,7 +107,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="first-name" name="lieu" value="<?php
                                     if (isset($data["avenir"])) {
-                                        echo $data["avenir"]->getLieu();
+                                        echo $data["avenir"]["lieu"];
                                     }
                                     ?>" class="form-control col-md-7 col-xs-12" required="">
                                 </div>
@@ -120,7 +119,7 @@
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" name="active" required="" value="1" data-parsley-multiple="actif" <?php
-                                                if (isset($data["avenir"]) && $data["avenir"]->getActive() == 1) {
+                                                if (isset($data["avenir"]) && $data["avenir"]["active"] == 1) {
                                                     echo "checked";
                                                 }
                                                 ?>> Oui
@@ -129,7 +128,7 @@
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" name="active" required="" value="0" data-parsley-multiple="actif" <?php
-                                                if ((isset($data["avenir"]) && $data["avenir"]->getActive() == 0) || !isset($data["avenir"])) {
+                                                if ((isset($data["avenir"]) && $data["avenir"]["active"] == 0) || !isset($data["avenir"])) {
                                                     echo "checked";
                                                 }
                                                 ?>> Non

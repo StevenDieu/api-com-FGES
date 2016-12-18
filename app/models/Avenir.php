@@ -85,6 +85,18 @@ class Avenir extends Database {
         }
     }
 
+    public function getAllAvenir() {
+        $stmt = $this->dbh->prepare('SELECT * FROM a_venir order by date_debut desc');
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll();
+        } else {
+            return false;
+        }
+    }
+
     public function getAllAvenirActive() {
         $stmt = $this->dbh->prepare('SELECT * FROM a_venir where active = 1 AND date_fin > CURDATE() order by date_debut desc');
 

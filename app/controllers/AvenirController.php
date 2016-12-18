@@ -26,24 +26,27 @@ class AvenirController extends Controller {
 
                 $dateTimeDebut = new DateTime($_POST["dateDebut"]);
                 $dateTimeFin = new DateTime($_POST["dateFin"]);
-
                 $dateTimeDebut->setTime($_POST["dateDebutHeure"], $_POST["dateDebutMinute"], 0);
                 $dateTimeFin->setTime($_POST["dateFinHeure"], $_POST["dateFinMinute"], 0);
+                if ($dateTimeDebut < $dateTimeFin) {
 
-                $avenir->setTitre($_POST["titre"]);
-                $avenir->setDescription($_POST["description"]);
-                $avenir->setActive($_POST["active"]);
-                $avenir->setDateDebut($dateTimeDebut->format('Y-m-d H:i:s'));
-                $avenir->setDateFin($dateTimeFin->format('Y-m-d H:i:s'));
-                $avenir->setLieu($_POST["lieu"]);
+                    $avenir->setTitre($_POST["titre"]);
+                    $avenir->setDescription($_POST["description"]);
+                    $avenir->setActive($_POST["active"]);
+                    $avenir->setDateDebut($dateTimeDebut->format('Y-m-d H:i:s'));
+                    $avenir->setDateFin($dateTimeFin->format('Y-m-d H:i:s'));
+                    $avenir->setLieu($_POST["lieu"]);
 
-                $avenir->addAvenir();
+                    $avenir->addAvenir();
 
-                $id = $avenir->getId();
-                if ($id > 0) {
-                    header('Location: /avenir/modification/' . $id . '/true');
+                    $id = $avenir->getId();
+                    if ($id > 0) {
+                        header('Location: /avenir/modification/' . $id . '/true');
+                    } else {
+                        $this->error = "Il y a une erreur dans l'ajout d'un \"a venir\".";
+                    }
                 } else {
-                    $this->error = "Il y a une erreur dans l'ajout d'un \"a venir\".";
+                    $this->error = "La date de début d'évènement doit être inférieur à la date de fin.";
                 }
             } else {
                 $this->error = "Tous les champs sont obligatoires.";
@@ -51,13 +54,16 @@ class AvenirController extends Controller {
         }
 
         if ((isset($_POST["titre"]) && isset($_POST["description"]) && isset($_POST["active"]) && isset($_POST["dateFin"]) && isset($_POST["dateDebut"]) && isset($_POST["lieu"]))) {
-            $this->avenirReturn = new Avenir();
-            $this->avenirReturn->setTitre($_POST["titre"]);
-            $this->avenirReturn->setDescription($_POST["description"]);
-            $this->avenirReturn->setActive($_POST["active"]);
-            $this->avenirReturn->setDateDebut($_POST["dateDebut"]);
-            $this->avenirReturn->setDateFin($_POST["dateFin"]);
-            $this->avenirReturn->setLieu($_POST["lieu"]);
+            $this->avenirReturn["titre"] = $_POST["titre"];
+            $this->avenirReturn["description"] = $_POST["description"];
+            $this->avenirReturn["active"] = $_POST["active"];
+            $this->avenirReturn["date_debut"] = $_POST["dateDebut"];
+            $this->avenirReturn["date_debut_heure"] = $_POST["dateDebutHeure"];
+            $this->avenirReturn["date_debut_minute"] = $_POST["dateDebutMinute"];
+            $this->avenirReturn["date_fin"] = $_POST["dateFin"];
+            $this->avenirReturn["date_fin_heure"] = $_POST["dateFinHeure"];
+            $this->avenirReturn["date_fin_minute"] = $_POST["dateFinMinute"];
+            $this->avenirReturn["lieu"] = $_POST["lieu"];
         }
 
         $this->render($this->dirView . '/creation', array(
@@ -92,18 +98,23 @@ class AvenirController extends Controller {
 
                     $dateTimeDebut->setTime($_POST["dateDebutHeure"], $_POST["dateDebutMinute"], 0);
                     $dateTimeFin->setTime($_POST["dateFinHeure"], $_POST["dateFinMinute"], 0);
+                    
+                    if ($dateTimeDebut < $dateTimeFin) {
 
-                    $avenirConstruct->setTitre($_POST["titre"]);
-                    $avenirConstruct->setDescription($_POST["description"]);
-                    $avenirConstruct->setActive($_POST["active"]);
-                    $avenirConstruct->setDateDebut($dateTimeDebut->format('Y-m-d H:i:s'));
-                    $avenirConstruct->setDateFin($dateTimeFin->format('Y-m-d H:i:s'));
-                    $avenirConstruct->setLieu($_POST["lieu"]);
+                        $avenirConstruct->setTitre($_POST["titre"]);
+                        $avenirConstruct->setDescription($_POST["description"]);
+                        $avenirConstruct->setActive($_POST["active"]);
+                        $avenirConstruct->setDateDebut($dateTimeDebut->format('Y-m-d H:i:s'));
+                        $avenirConstruct->setDateFin($dateTimeFin->format('Y-m-d H:i:s'));
+                        $avenirConstruct->setLieu($_POST["lieu"]);
 
-                    if ($avenirConstruct->updateAvenir()) {
-                        $this->success = "L'article à venir à bien été modifié.";
+                        if ($avenirConstruct->updateAvenir()) {
+                            $this->success = "L'article à venir à bien été modifié.";
+                        } else {
+                            $this->error = "Il y a une erreur dans la modification de l'article à venir.";
+                        }
                     } else {
-                        $this->error = "Il y a une erreur dans la modification de l'article à venir.";
+                        $this->error = "La date de début d'évènement doit être inférieur à la date de fin.";
                     }
                 } else {
                     $this->error = "Tous les champs sont obligatoires.";
@@ -163,7 +174,7 @@ class AvenirController extends Controller {
     public function liste() {
 
         $avenirs = (new Avenir())->getAllAvenir();
-        
+
         $this->render($this->dirView . '/liste', array(
             'title' => 'Liste dess avenirs',
             'avenirs' => $avenirs,
