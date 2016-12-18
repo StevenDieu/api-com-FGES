@@ -85,8 +85,8 @@ class Avenir extends Database {
         }
     }
 
-    public function getAllAvenir() {
-        $stmt = $this->dbh->prepare('SELECT * FROM a_venir');
+    public function getAllAvenirActive() {
+        $stmt = $this->dbh->prepare('SELECT * FROM a_venir where active = 1 AND date_fin > CURDATE() order by date_debut desc');
 
         $stmt->execute();
 
@@ -112,13 +112,13 @@ class Avenir extends Database {
         }
     }
 
-    public function countFlashback() {
-        $stmt = $this->dbh->prepare('select count(id) as numberFlashback from flashback where active = 1');
+    public function countAvenir() {
+        $stmt = $this->dbh->prepare('select count(id) as numberAvenir from a_venir where active = 1 AND date_fin > CURDATE()');
 
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetch(PDO::FETCH_ASSOC)["numberFlashback"];
+            return $stmt->fetch(PDO::FETCH_ASSOC)["numberAvenir"];
         } else {
             return false;
         }

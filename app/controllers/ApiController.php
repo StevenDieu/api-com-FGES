@@ -14,10 +14,10 @@ class ApiController extends Controller {
                 $flashback = $flashbackConstruct->getFlashbackByIdActive();
                 if (!empty($flashback)) {
                     $jsonFlashback["titre"] = $flashback["titre"];
-                    new DateTime($flashback["date_debut"]);
-                    date_default_timezone_set('Europe/Paris');
-                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra'); // OK
-                    $jsonFlashback["date_debut"] = strftime("%A %d %B %Y");
+
+                    $date_debut = new DateTime($flashback["date_debut"]);
+                    $jsonFlashback["date_debut"] = $this->format($date_debut->format('d F Y'));
+
                     $jsonFlashback["description"] = $flashback["description"];
                     echo json_encode($jsonFlashback);
                 }
@@ -45,6 +45,48 @@ class ApiController extends Controller {
                 }
             }
         }
+    }
+
+    public function avenir() {
+        header('Content-type: text/plain');
+        header("Access-Control-Allow-Origin: *");
+        $json = array();
+        $jsonListe = array();
+        $constructor = new Avenir();
+        $count = $constructor->countAvenir();
+
+        if ($count > 0) {
+            $list = $constructor->getAllAvenirActive();
+            foreach ($list as $elt) {
+                $array["id"] = $elt["id"];
+
+                $array["titre"] = $elt["titre"];
+                $array["description"] = $elt["titre"];
+
+                $date_debut = new DateTime($elt["date_debut"]);
+                $array["date_debut"] = $this->format($date_debut->format('d F Y'));
+                $array["heure_debut"] = $this->format($date_debut->format('H\hi'));
+
+                $date_fin = new DateTime($elt["date_fin"]);
+                $array["date_fin"] = $this->format($date_fin->format('d F Y'));
+                $array["heure_fin"] = $this->format($date_fin->format('H\hi'));
+
+                $array["lieu"] = $elt["lieu"];
+
+                array_push($jsonListe, $array);
+            }
+            $json["avenirs"] = $jsonListe;
+            echo json_encode($json);
+        } else {
+            $json["error"] = "nothing";
+            echo json_encode($json);
+        }
+    }
+
+    public function format($format) {
+        $english_months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+        $french_months = array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
+        return str_replace($english_months, $french_months, $format);
     }
 
     private function listPhoto($idAlbum = null, $start = null) {
@@ -154,10 +196,10 @@ class ApiController extends Controller {
                 }
                 foreach ($list as $elt) {
                     $array["titre"] = $elt["titre"];
-                    new DateTime($elt["date_debut"]);
-                    date_default_timezone_set('Europe/Paris');
-                    setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-                    $array["date_debut"] = strftime("%A %d %B %Y");
+
+                    $date_debut = new DateTime($elt["date_debut"]);
+                    $array["date_debut"] = $this->format($date_debut->format('d F Y'));
+
                     $array["id"] = $elt["id"];
                     array_push($jsonListe, $array);
                 }
