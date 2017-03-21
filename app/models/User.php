@@ -31,49 +31,51 @@ class User extends Database {
         $this->id = $this->dbh->lastInsertId();
     }
 
-    public function updateUserWithoutPassword(){
-        $stmt = $this->dbh->prepare("UPDATE user
-        SET email = ?, avenir = ?, lesphotos = ?, flashback = ?, admin = ?
-        WHERE id = ?");
+    public function updateUserWithoutPassword() {
+        if ($this->isSuperAdminLogin()) {
+            $stmt = $this->dbh->prepare("UPDATE user
+            SET email = ?, avenir = ?, lesphotos = ?, flashback = ?, admin = ?
+            WHERE id = ?");
 
-        $stmt->bindParam(1, $this->email);
-        $stmt->bindParam(2, $this->avenir);
-        $stmt->bindParam(3, $this->lesphotos);
-        $stmt->bindParam(4, $this->flashback);
-        $stmt->bindParam(5, $this->admin);
-        $stmt->bindParam(6, $this->id);
+            $stmt->bindParam(1, $this->email);
+            $stmt->bindParam(2, $this->avenir);
+            $stmt->bindParam(3, $this->lesphotos);
+            $stmt->bindParam(4, $this->flashback);
+            $stmt->bindParam(5, $this->admin);
+            $stmt->bindParam(6, $this->id);
 
-        $count = $stmt->execute();
+            $count = $stmt->execute();
 
-        if ($count > 0) {
-            return true;
-        } else {
-            return false;
+            if ($count > 0) {
+                return true;
+            }
         }
+         return false;
     }
-    
+
     public function updateUser() {
-        $motdepasse = md5($this->motdepasse);
+        if ($this->isSuperAdminLogin()) {
+            $motdepasse = md5($this->motdepasse);
 
-        $stmt = $this->dbh->prepare("UPDATE user
-        SET email = ?, motdepasse = ?, avenir = ?, lesphotos = ?, flashback = ?, admin = ?
-        WHERE id = ?");
+            $stmt = $this->dbh->prepare("UPDATE user
+            SET email = ?, motdepasse = ?, avenir = ?, lesphotos = ?, flashback = ?, admin = ?
+            WHERE id = ?");
 
-        $stmt->bindParam(1, $this->email);
-        $stmt->bindParam(2, $motdepasse);
-        $stmt->bindParam(3, $this->avenir);
-        $stmt->bindParam(4, $this->lesphotos);
-        $stmt->bindParam(5, $this->flashback);
-        $stmt->bindParam(6, $this->admin);
-        $stmt->bindParam(7, $this->id);
+            $stmt->bindParam(1, $this->email);
+            $stmt->bindParam(2, $motdepasse);
+            $stmt->bindParam(3, $this->avenir);
+            $stmt->bindParam(4, $this->lesphotos);
+            $stmt->bindParam(5, $this->flashback);
+            $stmt->bindParam(6, $this->admin);
+            $stmt->bindParam(7, $this->id);
 
-        $count = $stmt->execute();
+            $count = $stmt->execute();
 
-        if ($count > 0) {
-            return true;
-        } else {
-            return false;
+            if ($count > 0) {
+                return true;
+            }
         }
+        return false;
     }
 
     public function existUser() {
@@ -137,7 +139,7 @@ class User extends Database {
             return false;
         }
     }
-    
+
     public function getAllUser() {
         $stmt = $this->dbh->prepare('SELECT * FROM user');
 
@@ -149,20 +151,47 @@ class User extends Database {
             return false;
         }
     }
-    
+
     public function deleteUserById() {
-
-        $stmt = $this->dbh->prepare('DELETE FROM user
-        WHERE id = ?');
-
-        $stmt->bindParam(1, $this->id);
-        $count = $stmt->execute();
-
-        if ($count > 0) {
-            return true;
-        } else {
+        $user = $this->getUserById();
+        if (!$user) {
             return false;
         }
+        $this->email = $user["email"];
+        if (!$this->isSuperAdmin()) {
+            $stmt = $this->dbh->prepare('DELETE FROM user
+            WHERE id = ?');
+
+            $stmt->bindParam(1, $this->id);
+            $count = $stmt->execute();
+
+            if ($count > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function isSuperAdmin() {
+        return $this->email == "frederic.guilbert@univ-catholille.fr" || $this->email == "coralie.talma@univ-catholille.fr";
+    }
+
+    public function isSuperAdminLogin() {
+        if ($this->isSuperAdmin()) {
+            if ($this->email == "frederic.guilbert@univ-catholille.fr" && $_SESSION["LOGIN"]["email"] == "frederic.guilbert@univ-catholille.fr") {
+                $this->admin = "1";
+                return true;
+            }
+
+            if ($this->email == "coralie.talma@univ-catholille.fr" && $_SESSION["LOGIN"]["email"] == "coralie.talma@univ-catholille.fr") {
+                $this->admin = "1";
+                return true;
+            }
+            
+            return false;
+        }
+
+        return true;
     }
 
     /**

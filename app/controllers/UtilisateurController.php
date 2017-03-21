@@ -130,16 +130,16 @@ class UtilisateurController extends Controller {
                         } else {
                             $userController->setAdmin('0');
                         }
-
+                        
                         if (isset($_POST["motdepasse"]) && !empty($_POST["motdepasse"])) {
                             $userController->setMotdepasse($_POST["motdepasse"]);
-                            $userController->updateUser();
+                            $return = $userController->updateUser();
                         }else{
-                            $userController->updateUserWithoutPassword();
+                            $return = $userController->updateUserWithoutPassword();
                         }
                         
 
-                        if ($id > 0) {
+                        if ($return && $id > 0) {
                             $this->success = "Utilisateur modifié.";
                         } else {
                             $this->error = "Il y a une erreur dans la modification d'un utilisateur.";
