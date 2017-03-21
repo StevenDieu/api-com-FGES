@@ -7,8 +7,10 @@
         </div>
         <div class="clearfix"></div>
         <div class="row">
-            <a href="https://pushbots.com/dashboard">Lien vers le site</a>
-            <br/>
+            <br>
+            <p><b>Adresse email</b> : fges.app@gmail.com</p>
+            <p><b>Mot de passe</b> : pushbotpassword</p>
+            <p><a href="https://pushbots.com/dashboard">Lien vers le site</a></p>
             <iframe class="sizeIframe" src="https://pushbots.com/dashboard"></iframe>
         </div>
     </div>
