@@ -9,7 +9,7 @@
         <div class="row">
             <br>
             <p><b>Adresse email</b> : fges.app@gmail.com</p>
-            <p><b>Mot de passe</b> : pushbotpassword</p>
+            <p><b>Mot de passe</b> : 7wcHQ4g6</p>
             <p><a href="https://pushbots.com/dashboard">Lien vers le site</a></p>
             <iframe class="sizeIframe" src="https://pushbots.com/dashboard"></iframe>
         </div>

@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Login - Com' FGES</title>
+        <title>Login - Well' Com</title>
 
         <!-- Bootstrap -->
         <link href="assets/library/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
                 <div class="animate form login_form">
                     <section class="login_content">
                         <form action="/login" method="post">
-                            <h1>Login Com' FGES</h1>
+                            <h1>Login Well' Com</h1>
                             <?php if (isset($data["error"])) { ?>
                                 <div class="alert alert-warning alert-dismissible fade in" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
@@ -60,7 +60,7 @@
                                 <br />
 
                                 <div>
-                                    <h1><i class="fa fa-bullhorn"></i> Com' FGES</h1>
+                                    <h1><i class="fa fa-bullhorn"></i> Well' Com</h1>
                                     <p>©2016 All Rights Reserved. Dieu Steven & Mathieu Menet</p>
                                 </div>
                             </div>
