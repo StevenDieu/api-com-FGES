@@ -172,7 +172,7 @@ class Flashback extends Database {
     }
 
     function setDescription($description) {
-        $this->description = $description;
+        $this->description = str_replace ('src="//www.youtube', 'src="http://www.youtube' , $description);
     }
 
     function setDate($date) {

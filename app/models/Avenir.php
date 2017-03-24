@@ -98,7 +98,7 @@ class Avenir extends Database {
     }
 
     public function getAllAvenirActive() {
-        $stmt = $this->dbh->prepare('SELECT * FROM a_venir where active = 1 AND date_fin > CURDATE() order by date_debut desc');
+        $stmt = $this->dbh->prepare('SELECT * FROM a_venir where active = 1 AND date_fin > CURDATE() order by date_debut asc');
 
         $stmt->execute();
 
@@ -110,7 +110,7 @@ class Avenir extends Database {
     }
 
     public function getAllFlashbackByPage($start, $limit) {
-        $stmt = $this->dbh->prepare('SELECT id,titre,date_debut FROM flashback where active = 1 order by date_debut desc LIMIT ? OFFSET ?');
+        $stmt = $this->dbh->prepare('SELECT id,titre,date_debut FROM flashback where active = 1 order by date_debut asc LIMIT ? OFFSET ?');
         $startInt = intval($start);
         $stmt->bindParam(1, $limit, PDO::PARAM_INT);
         $stmt->bindParam(2, $startInt, PDO::PARAM_INT);

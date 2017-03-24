@@ -59,11 +59,9 @@
                                     </ul>
                                 </li>
                             <?php } ?>
-                            <?php if ($_SESSION["LOGIN"]["admin"]) { ?>
                                 <li class="">
                                     <a href="/notification"><i class="fa fa-comment"></i> Notification </a>
                                 </li>
-                            <?php } ?>
                         </ul>
                     </div>
 

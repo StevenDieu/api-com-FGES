@@ -10,7 +10,7 @@ class Dispatcher {
     function __construct() {
         $this->url = $this->parseUrl();
 
-        if ($this->url[0] != "api" || $this->url[0] != "assistance" ) {
+        if ($this->url[0] != "api" && $this->url[0] != "assistance" ) {
             if ($_SERVER["REQUEST_URI"] != '/login' && empty($_SESSION["LOGIN"])) {
                 header("location: /login");
             }
