@@ -74,7 +74,7 @@
                             <div class="form-group">
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
-                                    <a type="submit" href="javascript.void(0)" class="btn btn-success return-page">Retour</a>
+                                    <a type="submit" href="/lesphotos/liste" class="btn btn-success">Retour</a>
                                 </div>
                             </div>
                         <?php } else { ?>

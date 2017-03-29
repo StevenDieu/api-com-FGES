@@ -112,7 +112,7 @@ class Photos extends Database {
     public function getAllPhotosByPageAndIdAlbum($start) {
         $startInt = intval($start);
 
-        $stmt = $this->dbh->prepare('SELECT * FROM photos where id_album = ? LIMIT 10 OFFSET ?');
+        $stmt = $this->dbh->prepare('SELECT * FROM photos where id_album = ? ORDER BY id ASC LIMIT 10 OFFSET ?');
 
         $stmt->bindParam(1, $this->id_album);
         $stmt->bindParam(2, $startInt, PDO::PARAM_INT);
