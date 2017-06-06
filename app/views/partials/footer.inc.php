@@ -2,7 +2,7 @@
 <!-- footer content -->
 <footer>
     <div class="pull-right">
-        Well' Com - Steven Dieu & Mathieu Menet</a>
+        COM'IN - Steven Dieu & Mathieu Menet</a>
     </div>
     <div class="clearfix"></div>
 </footer>

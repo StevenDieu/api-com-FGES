@@ -132,7 +132,7 @@ class Flashback extends Database {
     }
 
     function getNextId() {
-        $stmt = $this->dbh->prepare("SHOW TABLE STATUS FROM comfges LIKE 'flashback'");
+        $stmt = $this->dbh->prepare("SHOW TABLE STATUS FROM comin LIKE 'flashback'");
 
         $stmt->execute();
 

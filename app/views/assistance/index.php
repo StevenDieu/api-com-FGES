@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Login - Well' Com</title>
+        <title>Login - COM'IN</title>
 
         <!-- Bootstrap -->
         <link href="/assets/library/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
                 <div class="form-area">  
                     <form role="form" action="/assistance" method="POST">
                         <br style="clear:both">
-                        <h3 style="margin-bottom: 25px; text-align: center;">Assistance Well'Com</h3>
+                        <h3 style="margin-bottom: 25px; text-align: center;">Assistance COM'IN</h3>
                         <?php if (!empty($data["class"])) { ?>
                             <div class="alert alert-<?php echo $data["class"]; ?> alert-dismissible fade in" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>

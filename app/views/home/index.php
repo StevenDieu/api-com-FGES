@@ -21,7 +21,7 @@
                     </div>
                     <div class="x_content">
                         <br />
-                       Bienvenue sur le site d'administrationde l'application Well' Com
+                       Bienvenue sur le site d'administrationde l'application COM'IN
                     </div>
                 </div>
             </div>

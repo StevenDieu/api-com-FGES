@@ -131,7 +131,7 @@ class Album extends Database {
     }
 
     function getNextId() {
-        $stmt = $this->dbh->prepare("SHOW TABLE STATUS FROM comfges LIKE 'album'");
+        $stmt = $this->dbh->prepare("SHOW TABLE STATUS FROM comin LIKE 'album'");
 
         $stmt->execute();
 

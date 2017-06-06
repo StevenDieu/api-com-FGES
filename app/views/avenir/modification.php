@@ -95,7 +95,7 @@
                                             ?>">
                                         </div>
                                         <div class="col-md-2 col-sm-2 col-xs-12">
-                                            <select class="form-control col-md-7 col-xs-12" name="dateFinMinute">
+                                            <select class="form-control col-md-7 col-xs-12" name="dateFinHeure">
                                                 <?php for ($hours = 0; $hours <= 23; $hours++) { ?>
                                                     <option value="<?php echo $hours; ?>" <?php if (isset($data["avenir"]["date_fin_heure"]) && $data["avenir"]["date_fin_heure"] == $hours) { ?> selected <?php } ?>><?php echo $hours; ?> Heure </option>
                                                 <?php }
@@ -103,7 +103,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2 col-sm-2 col-xs-12">
-                                            <select class="form-control col-md-7 col-xs-12" name="dateFinHeure">
+                                            <select class="form-control col-md-7 col-xs-12" name="dateFinMinute">
                                                 <?php for ($minute = 00; $minute <= 59; $minute++) { ?>
                                                     <option value="<?php echo $minute; ?>" <?php if (isset($data["avenir"]["date_fin_minute"]) && $data["avenir"]["date_fin_minute"] == $minute) { ?> selected <?php } ?>><?php echo $minute; ?> Minute </option>
                                                 <?php } ?>
@@ -149,7 +149,7 @@
                                     <div class="ln_solid"></div>
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                            <a type="submit" href="javascript.void(0)" class="btn btn-success return-page">Retour</a>
+                                            <a type="submit" href="/avenir/liste" class="btn btn-success return-page">Retour</a>
                                             <input type="submit" class="btn btn-success" value="Modifier">
                                         </div>
                                     </div>

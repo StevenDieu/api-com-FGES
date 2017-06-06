@@ -25,6 +25,23 @@ class ApiController extends Controller {
         }
     }
 
+    public function comment() {
+        header('Content-type: text/plain');
+        header("Access-Control-Allow-Origin: *");
+        switch ($_SERVER['REQUEST_METHOD']) {
+            case "POST":
+                addComment();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private function addComment() {
+        
+    }
+
     public function photo($idAlbum = null, $idOrPage = null, $start = null) {
         header('Content-type: text/plain');
         header("Access-Control-Allow-Origin: *");
