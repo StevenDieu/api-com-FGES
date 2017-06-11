@@ -203,4 +203,34 @@ class LesphotosController extends Controller {
         }
     }
 
+    public function commentaire($active = null) {
+
+        $commentController = new Comment();
+        $commentController->setType(TypeComment::photo);
+        $class = "ALL";
+
+        if ($active != null && ($active == '0' || $active == '1')) {
+            $class = "ACTIF";
+
+            if ($active == '0') {
+                $class = "INACTIF";
+            }
+
+            $commentController->setActive($active);
+        }
+
+
+        $listComment = $commentController->getAllCommentByTypeId('p.url as url', 'inner join photos p on c.id_type = p.id');
+
+        $arrayJs = array("commentaire");
+        $arrayCss = array("commentaire");
+        $this->render($this->dirView . '/commentaire', array(
+            'title' => 'Commentaire photo',
+            'arrayJs' => $arrayJs,
+            'arrayCss' => $arrayCss,
+            'classFilter' => $class,
+            'comments' => $listComment
+        ));
+    }
+
 }

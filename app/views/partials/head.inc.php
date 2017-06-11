@@ -35,6 +35,13 @@
 
 
         <link href="/assets/css/main.css" rel="stylesheet">
+        
+        <link href="/assets/library/pnotify/dist/pnotify.css" rel="stylesheet">
+        
+        <link href="/assets/library/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+        
+        <link href="/assets/library/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+        
         <?php if ((isset($data["froala"]) && $data["froala"] == true)) {
             ?>
             <!-- Include Font Awesome. -->

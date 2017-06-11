@@ -12,4 +12,17 @@ abstract class TypeComment {
     const photo = "photo";
     const flashback = "flashback";
 
+    public static function checkValidComment($type) {
+        switch ($type) {
+            case TypeComment::avenir:
+                return true;
+            case TypeComment::photo:
+                return true;
+            case TypeComment::flashback:
+                return true;
+            default:
+                return false;
+        }
+    }
+
 }

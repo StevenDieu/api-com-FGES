@@ -98,7 +98,7 @@ class AvenirController extends Controller {
 
                     $dateTimeDebut->setTime($_POST["dateDebutHeure"], $_POST["dateDebutMinute"], 0);
                     $dateTimeFin->setTime($_POST["dateFinHeure"], $_POST["dateFinMinute"], 0);
-                    
+
                     if ($dateTimeDebut < $dateTimeFin) {
 
                         $avenirConstruct->setTitre($_POST["titre"]);
@@ -178,6 +178,36 @@ class AvenirController extends Controller {
         $this->render($this->dirView . '/liste', array(
             'title' => 'Liste dess avenirs',
             'avenirs' => $avenirs,
+        ));
+    }
+
+    public function commentaire($active = null) {
+
+        $commentController = new Comment();
+        $commentController->setType(TypeComment::avenir);
+        $class = "ALL";
+
+        if ($active != null && ($active == '0' || $active == '1')) {
+            $class = "ACTIF";
+
+            if ($active == '0') {
+                $class = "INACTIF";
+            }
+
+            $commentController->setActive($active);
+        }
+
+
+        $listComment = $commentController->getAllCommentByTypeId('av.titre as titre', 'inner join a_venir av on c.id_type = av.id');
+
+        $arrayJs = array("commentaire");
+        $arrayCss = array("commentaire");
+        $this->render($this->dirView . '/commentaire', array(
+            'title' => 'Commentaire à venir',
+            'arrayJs' => $arrayJs,
+            'arrayCss' => $arrayCss,
+            'classFilter' => $class,
+            'comments' => $listComment
         ));
     }
 

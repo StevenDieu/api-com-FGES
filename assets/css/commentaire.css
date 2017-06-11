@@ -1,0 +1,57 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11 juin 2017, 16:01:14
+    Author     : steven
+*/
+
+.modal-body-comment-text {
+    line-height: 17px;
+}
+.modal-body-comment-name {
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+.modal-body-comment-date {
+    font-size: 13px;
+    color: #9caab6;
+    text-align: right;
+}
+
+.modal-body {
+    width: 80%;
+    margin: auto;
+}
+
+.actif{
+    color : green;
+}
+
+.inactif{
+    color : red;
+}
+
+
+.modal-body-titre {
+    font-size: 20px;
+    text-align: center;
+    max-width: 100%
+}
+
+img.modal-body-titre {
+    margin-bottom: 50px;
+}
+
+.modal-body-description {
+    font-size: 15px;
+    margin-bottom: 40px;
+}
+
+.modal .btn {
+    float: right;
+}

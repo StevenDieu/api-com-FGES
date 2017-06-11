@@ -179,5 +179,36 @@ class FlashbackController extends Controller {
             http_response_code(404);
         }
     }
+    
+    public function commentaire($active = null) {
+
+        $commentController = new Comment();
+        $commentController->setType(TypeComment::flashback);
+        $class = "ALL";
+
+        if ($active != null && ($active == '0' || $active == '1')) {
+            $class = "ACTIF";
+
+            if ($active == '0') {
+                $class = "INACTIF";
+            }
+
+            $commentController->setActive($active);
+        }
+
+
+        $listComment = $commentController->getAllCommentByTypeId('f.titre as titre, f.description as description', 'inner join flashback f on c.id_type = f.id');
+
+        $arrayJs = array("commentaire");
+        $arrayCss = array("commentaire");
+        $this->render($this->dirView . '/commentaire', array(
+            'title' => 'Commentaire flashback',
+            'arrayJs' => $arrayJs,
+            'arrayCss' => $arrayCss,
+            'classFilter' => $class,
+            'comments' => $listComment
+        ));
+    }
+
 
 }

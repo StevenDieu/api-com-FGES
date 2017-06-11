@@ -22,6 +22,7 @@
                                         <li><a href="/avenir/creation">Création à venir</a></li>
                                         <li><a href="/avenir/modification">Modification à venir</a></li>
                                         <li><a href="/avenir/suppression">Suppression à venir</a></li>
+                                        <li><a href="/avenir/commentaire">Commentaire à venir <b>(<?php echo $data["countCommentInatifAvenir"]; ?>)</b></a></li>
                                     </ul>
                                 </li>
                             <?php } ?>
@@ -33,6 +34,7 @@
                                         <li><a href="/lesphotos/creation">Création albums photos</a></li>
                                         <li><a href="/lesphotos/modification">Modification albums photos</a></li>
                                         <li><a href="/lesphotos/suppression">Suppression albums photos</a></li>
+                                        <li><a href="/lesphotos/commentaire">Commentaire photo <b>(<?php echo $data["countCommentInatifPhoto"]; ?>)</b></a></li>
                                     </ul>
                                 </li>
                             <?php } ?>
@@ -44,6 +46,7 @@
                                         <li><a href="/flashback/creation">Création flashback</a></li>
                                         <li><a href="/flashback/modification">Modification flashback</a></li>
                                         <li><a href="/flashback/suppression">Suppression flashback</a></li>
+                                        <li><a href="/flashback/commentaire">Commentaire flashback <b>(<?php echo $data["countCommentInatifFlashback"]; ?>)</b></a></li>
                                     </ul>
                                 </li>
                             <?php } ?>
@@ -59,31 +62,15 @@
                                     </ul>
                                 </li>
                             <?php } ?>
-                                <li class="">
-                                    <a href="/notification"><i class="fa fa-comment"></i> Notification </a>
-                                </li>
+                            <li class="">
+                                <a href="/notification"><i class="fa fa-comment"></i> Notification </a>
+                            </li>
                         </ul>
                     </div>
 
                 </div>
                 <!-- /sidebar menu -->
 
-                <!-- /menu footer buttons -->
-                <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" data-placement="top" title="Settings">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Lock">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
-                    <a href="/login/disconnect" >
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                    </a>
-                </div>
-                <!-- /menu footer buttons -->
             </div>
         </div>
 

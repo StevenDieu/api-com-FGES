@@ -34,3 +34,7 @@ td.last{
     float: none;
     margin: 0 auto;
 }
+
+.table > tbody > tr > td{
+    vertical-align: middle;
+}

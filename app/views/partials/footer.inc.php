@@ -49,6 +49,10 @@
 <!-- Custom Theme Scripts -->
 <script src="/assets/library/js/custom.min.js"></script>
 
+<script src="/assets/library/pnotify/dist/pnotify.js" ></script>
+<script src="/assets/library/pnotify/dist/pnotify.buttons.js" ></script>
+<script src="/assets/library/pnotify/dist/pnotify.nonblock.js" ></script>
+
 <!-- bootstrap-daterangepicker -->
 <script>
     $(document).ready(function () {
