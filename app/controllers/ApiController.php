@@ -74,7 +74,7 @@ class ApiController extends Controller {
             $comment->setText($_POST["text"]);
             $comment->addComment();
             http_response_code(200);
-            $json["message"] = "Votre commentaire à été envoyé avec succés...";
+            $json["message"] = "Votre commentaire à été envoyé avec succés... Nous allons le vérifier avant de le publier.";
         } else {
             http_response_code(400);
             $json["message"] = "Votre commentaire n'a pas été envoyé, veuillez recommencer...";
@@ -135,7 +135,7 @@ class ApiController extends Controller {
                 $array["number_comment"] = $comment->getCountCommentActiveByIdType();
 
                 $array["titre"] = $elt["titre"];
-                $array["description"] = $elt["titre"];
+                $array["description"] = $elt["description"];
 
                 $date_debut = new DateTime($elt["date_debut"]);
                 $array["date_debut"] = $this->format($date_debut->format('d F Y'));
