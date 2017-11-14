@@ -1,28 +1,31 @@
 <?php
 
-class AvenirController extends Controller {
+class AvenirController extends Controller
+{
 
     private $dirView = 'avenir';
     private $error = null;
     private $avenirReturn = null;
     private $success = null;
 
-    public function index() {
+    public function index()
+    {
         $this->render($this->dirView . '/index', array(
             'title' => 'A venir'
         ));
     }
 
-    public function creation() {
+    public function creation()
+    {
         $avenir = new Avenir();
 
         if ((!empty($_POST))) {
             if ((isset($_POST["titre"]) && !empty($_POST["titre"])) &&
-                    (isset($_POST["description"]) && !empty($_POST["description"])) &&
-                    (isset($_POST["dateFin"]) && !empty($_POST["dateFin"])) &&
-                    (isset($_POST["dateDebut"]) && !empty($_POST["dateDebut"])) &&
-                    (isset($_POST["lieu"]) && !empty($_POST["lieu"])) &&
-                    (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0))) {
+                (isset($_POST["description"]) && !empty($_POST["description"])) &&
+                (isset($_POST["dateFin"]) && !empty($_POST["dateFin"])) &&
+                (isset($_POST["dateDebut"]) && !empty($_POST["dateDebut"])) &&
+                (isset($_POST["lieu"]) && !empty($_POST["lieu"])) &&
+                (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0))) {
 
                 $dateTimeDebut = new DateTime($_POST["dateDebut"]);
                 $dateTimeFin = new DateTime($_POST["dateFin"]);
@@ -74,7 +77,8 @@ class AvenirController extends Controller {
         ));
     }
 
-    public function modification($id = null, $created = false) {
+    public function modification($id = null, $created = false)
+    {
         $avenirs = null;
         $avenir = null;
         $avenirConstruct = new Avenir();
@@ -87,11 +91,11 @@ class AvenirController extends Controller {
 
             if ((!empty($_POST))) {
                 if ((isset($_POST["titre"]) && !empty($_POST["titre"])) &&
-                        (isset($_POST["description"]) && !empty($_POST["description"])) &&
-                        (isset($_POST["dateFin"]) && !empty($_POST["dateFin"])) &&
-                        (isset($_POST["dateDebut"]) && !empty($_POST["dateDebut"])) &&
-                        (isset($_POST["lieu"]) && !empty($_POST["lieu"])) &&
-                        (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0))) {
+                    (isset($_POST["description"]) && !empty($_POST["description"])) &&
+                    (isset($_POST["dateFin"]) && !empty($_POST["dateFin"])) &&
+                    (isset($_POST["dateDebut"]) && !empty($_POST["dateDebut"])) &&
+                    (isset($_POST["lieu"]) && !empty($_POST["lieu"])) &&
+                    (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0))) {
 
                     $dateTimeDebut = new DateTime($_POST["dateDebut"]);
                     $dateTimeFin = new DateTime($_POST["dateFin"]);
@@ -145,7 +149,8 @@ class AvenirController extends Controller {
         ));
     }
 
-    public function suppression() {
+    public function suppression()
+    {
         $avenirConstruct = new Avenir();
 
         if ((!empty($_POST))) {
@@ -171,7 +176,8 @@ class AvenirController extends Controller {
         ));
     }
 
-    public function liste() {
+    public function liste()
+    {
 
         $avenirs = (new Avenir())->getAllAvenir();
 
@@ -181,7 +187,8 @@ class AvenirController extends Controller {
         ));
     }
 
-    public function commentaire($active = null) {
+    public function commentaire($active = null)
+    {
 
         $commentController = new Comment();
         $commentController->setType(TypeComment::avenir);

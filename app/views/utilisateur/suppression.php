@@ -11,14 +11,16 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <?php if (isset($data["error"])) { ?>
                     <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span>
                         </button>
                         <strong>Attention!</strong> <?php echo $data['error'] ?>
                     </div>
                 <?php } ?>
                 <?php if (isset($data["success"])) { ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span>
                         </button>
                         <strong>Succès!</strong> <?php echo $data['success'] ?>
                     </div>
@@ -33,20 +35,22 @@
                     </div>
                     <div class="x_content">
                         <br>
-                        <form action="/utilisateur/suppression" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post">
+                        <form action="/utilisateur/suppression" data-parsley-validate=""
+                              class="form-horizontal form-label-left" novalidate="" method="post">
 
                             <div class="form-group">
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Utilisateur
                                     </label>
-                                    <div  class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="idUser" id="selectFlashback" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select name="idUser" id="selectFlashback" type="text" id="first-name"
+                                                required="required" class="form-control col-md-7 col-xs-12">
                                             <option value="-1">Choisir un utilisateur</option>
                                             <?php
                                             if (isset($data["utilisateurs"]) && !empty($data["utilisateurs"])) {
                                                 foreach ($data["utilisateurs"] as $utilisateurs) {
-                                                    if($_SESSION["LOGIN"]["id"] != $utilisateurs["id"]){
+                                                    if ($_SESSION["LOGIN"]["id"] != $utilisateurs["id"]) {
                                                         ?>
                                                         <option value="<?php echo $utilisateurs["id"]; ?>"><?php echo $utilisateurs["email"]; ?></option>
                                                         <?php

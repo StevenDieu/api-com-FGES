@@ -6,13 +6,15 @@
  * and open the template in the editor.
  */
 
-abstract class TypeComment {
+abstract class TypeComment
+{
 
     const avenir = "avenir";
     const photo = "photo";
     const flashback = "flashback";
 
-    public static function checkValidComment($type) {
+    public static function checkValidComment($type)
+    {
         switch ($type) {
             case TypeComment::avenir:
                 return true;

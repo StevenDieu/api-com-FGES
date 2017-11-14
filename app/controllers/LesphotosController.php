@@ -1,17 +1,19 @@
 <?php
 
-class LesphotosController extends Controller {
+class LesphotosController extends Controller
+{
 
     private $dirView = 'lesphotos';
     private $error = null;
     private $success = null;
 
-    public function creation() {
+    public function creation()
+    {
         $album = new Album();
         if ((!empty($_POST))) {
             if ((isset($_POST["titre"]) && !empty($_POST["titre"])) &&
-                    (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0)) &&
-                    (isset($_POST["date"]) && !empty($_POST["date"]))) {
+                (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0)) &&
+                (isset($_POST["date"]) && !empty($_POST["date"]))) {
 
                 $album->setTitre($_POST["titre"]);
                 $album->setActive($_POST["active"]);
@@ -44,7 +46,8 @@ class LesphotosController extends Controller {
         ));
     }
 
-    public function modification() {
+    public function modification()
+    {
         $arrayJs = array("lesphotos/modification");
 
         $this->render($this->dirView . '/modification', array(
@@ -54,7 +57,8 @@ class LesphotosController extends Controller {
         ));
     }
 
-    public function modificationAlbum($id = null) {
+    public function modificationAlbum($id = null)
+    {
 
 
         $albumConstruction = new Album();
@@ -62,8 +66,8 @@ class LesphotosController extends Controller {
 
         if ((!empty($_POST))) {
             if ((isset($_POST["titre"]) && !empty($_POST["titre"])) &&
-                    (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0)) &&
-                    (isset($_POST["date"]) && !empty($_POST["date"]))) {
+                (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0)) &&
+                (isset($_POST["date"]) && !empty($_POST["date"]))) {
                 $albumConstruction->setTitre($_POST["titre"]);
                 $albumConstruction->setActive($_POST["active"]);
                 $albumConstruction->setDate($_POST["date"]);
@@ -90,7 +94,8 @@ class LesphotosController extends Controller {
         ));
     }
 
-    public function modificationPhotos($id = null, $created = false) {
+    public function modificationPhotos($id = null, $created = false)
+    {
         if ($created == true) {
             $this->success = "L'album à bien été créé.";
         }
@@ -120,7 +125,8 @@ class LesphotosController extends Controller {
         ));
     }
 
-    public function suppression() {
+    public function suppression()
+    {
         $albumConstruct = new Album();
 
         if ((!empty($_POST))) {
@@ -152,14 +158,16 @@ class LesphotosController extends Controller {
         ));
     }
 
-    public function liste() {
+    public function liste()
+    {
         $this->render($this->dirView . '/liste', array(
             'title' => 'Liste albums',
             'albums' => (new Album())->getAllAlbum(),
         ));
     }
 
-    public function ajouterImage($id = null) {
+    public function ajouterImage($id = null)
+    {
         if ($id != null) {
 
             $ds = DIRECTORY_SEPARATOR;
@@ -193,7 +201,8 @@ class LesphotosController extends Controller {
         echo json_encode($result);
     }
 
-    public function supprimerImage($id = null) {
+    public function supprimerImage($id = null)
+    {
         if ($id != null) {
             $photos = new Photos();
             $photos->setId($id);
@@ -203,7 +212,8 @@ class LesphotosController extends Controller {
         }
     }
 
-    public function commentaire($active = null) {
+    public function commentaire($active = null)
+    {
 
         $commentController = new Comment();
         $commentController->setType(TypeComment::photo);

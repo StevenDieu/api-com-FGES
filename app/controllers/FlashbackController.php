@@ -1,20 +1,23 @@
 <?php
 
-class FlashbackController extends Controller {
+class FlashbackController extends Controller
+{
 
     private $dirView = 'flashback';
     private $error = null;
     private $flashbackReturn = null;
     private $success = null;
 
-    public function creation() {
+    public function creation()
+    {
         $flashback = new Flashback();
-        $nextId = $flashback->getNextId();
+        $arrayNextId = $flashback->getNextId();
+        $nextId = $arrayNextId["Auto_increment"];
         if ((!empty($_POST))) {
             if ((isset($_POST["titre"]) && !empty($_POST["titre"])) &&
-                    (isset($_POST["description"]) && !empty($_POST["description"])) &&
-                    (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0)) &&
-                    (isset($_POST["date"]) && !empty($_POST["date"]))) {
+                (isset($_POST["description"]) && !empty($_POST["description"])) &&
+                (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0)) &&
+                (isset($_POST["date"]) && !empty($_POST["date"]))) {
 
                 $flashback->setTitre($_POST["titre"]);
                 $flashback->setDescription($_POST["description"]);
@@ -23,7 +26,8 @@ class FlashbackController extends Controller {
                 $flashback->addFlashback();
                 $id = $flashback->getId();
                 if ($id > 0) {
-                    $nextId = $flashback->getNextId();
+                    $arrayNextId = $flashback->getNextId();
+                    $nextId = $arrayNextId["Auto_increment"];
                     $src = 'assets/img/flashback/' . $nextId;
                     (new helper())->deleteAndCreatDir($src);
                     header('Location: /flashback/modification/' . $id . '/true');
@@ -56,7 +60,8 @@ class FlashbackController extends Controller {
         ));
     }
 
-    public function modification($id = null, $created = false) {
+    public function modification($id = null, $created = false)
+    {
         $flashbacks = null;
         $flashback = null;
         $froala = false;
@@ -69,9 +74,9 @@ class FlashbackController extends Controller {
 
             if ((!empty($_POST))) {
                 if ((isset($_POST["titre"]) && !empty($_POST["titre"])) &&
-                        (isset($_POST["description"]) && !empty($_POST["description"])) &&
-                        (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0)) &&
-                        (isset($_POST["date"]) && !empty($_POST["date"]))) {
+                    (isset($_POST["description"]) && !empty($_POST["description"])) &&
+                    (isset($_POST["active"]) && (!empty($_POST["active"]) || $_POST["active"] == 0)) &&
+                    (isset($_POST["date"]) && !empty($_POST["date"]))) {
                     $flashbackConstruct->setTitre($_POST["titre"]);
                     $flashbackConstruct->setDescription($_POST["description"]);
                     $flashbackConstruct->setActive($_POST["active"]);
@@ -105,7 +110,8 @@ class FlashbackController extends Controller {
         ));
     }
 
-    public function suppression() {
+    public function suppression()
+    {
         $flashbackConstruct = new Flashback();
 
         if ((!empty($_POST))) {
@@ -133,7 +139,8 @@ class FlashbackController extends Controller {
         ));
     }
 
-    public function liste($id = null) {
+    public function liste($id = null)
+    {
         $flashbackConstruct = new Flashback();
         $flashbacks = null;
         $flashback = null;
@@ -155,7 +162,8 @@ class FlashbackController extends Controller {
         ));
     }
 
-    public function ajoutImage($nextId) {
+    public function ajoutImage($nextId)
+    {
         include_once 'lib/froala/froala_editor.php';
 
         try {
@@ -168,7 +176,8 @@ class FlashbackController extends Controller {
         }
     }
 
-    public function supprimeImage() {
+    public function supprimeImage()
+    {
 
         include_once 'lib/froala/froala_editor.php';
 
@@ -179,8 +188,9 @@ class FlashbackController extends Controller {
             http_response_code(404);
         }
     }
-    
-    public function commentaire($active = null) {
+
+    public function commentaire($active = null)
+    {
 
         $commentController = new Comment();
         $commentController->setType(TypeComment::flashback);

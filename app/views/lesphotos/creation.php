@@ -11,14 +11,16 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <?php if (isset($data["error"])) { ?>
                     <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span>
                         </button>
                         <strong>Attention!</strong> <?php echo $data['error'] ?>
                     </div>
                 <?php } ?>
                 <?php if (isset($data["success"])) { ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span>
                         </button>
                         <strong>Succès!</strong> <?php echo $data['success'] ?>
                     </div>
@@ -33,10 +35,12 @@
                     </div>
                     <div class="x_content">
                         <br>
-                        <form id="form-froala" action="/lesphotos/creation/" method="post" class="form-horizontal form-label-left" >
+                        <form id="form-froala" action="/lesphotos/creation/" method="post"
+                              class="form-horizontal form-label-left">
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Titre de l'évènement<span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Titre de
+                                    l'évènement<span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="text" id="first-name" name="titre" value="<?php
@@ -47,10 +51,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Date de l'évènement <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Date de l'évènement <span
+                                            class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="birthday" name="date" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" value="<?php
+                                    <input id="birthday" name="date" class="date-picker form-control col-md-7 col-xs-12"
+                                           required="required" type="text" value="<?php
                                     if (isset($data["album"])) {
                                         echo $data["album"]->getDate();
                                     }
@@ -58,12 +64,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Actif <span class="required">*</span></label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Actif <span
+                                            class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div id="gender" class="btn-group" data-toggle="buttons">
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="active" required="" value="1" data-parsley-multiple="actif" <?php
+                                                <input type="radio" name="active" required="" value="1"
+                                                       data-parsley-multiple="actif" <?php
                                                 if (isset($data["album"]) && $data["album"]->getActive() == 1) {
                                                     echo "checked";
                                                 }
@@ -72,7 +80,8 @@
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="active" required="" value="0" data-parsley-multiple="actif" <?php
+                                                <input type="radio" name="active" required="" value="0"
+                                                       data-parsley-multiple="actif" <?php
                                                 if ((isset($data["album"]) && $data["album"]->getActive() == 0) || !isset($data["album"])) {
                                                     echo "checked";
                                                 }

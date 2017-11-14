@@ -1,23 +1,25 @@
 <?php
 
-class UtilisateurController extends Controller {
+class UtilisateurController extends Controller
+{
 
     private $dirView = 'utilisateur';
     private $error = null;
     private $success = null;
 
-    public function creation() {
+    public function creation()
+    {
         $user = new User();
 
         if ((!empty($_POST))) {
             if ((isset($_POST["email"]) && !empty($_POST["email"])) &&
-                    (isset($_POST["motdepasse"]) && !empty($_POST["motdepasse"])) &&
-                    (
+                (isset($_POST["motdepasse"]) && !empty($_POST["motdepasse"])) &&
+                (
                     isset($_POST["avenir"]) && !empty($_POST["avenir"]) ||
                     isset($_POST["lesphotos"]) && !empty($_POST["lesphotos"]) ||
                     isset($_POST["flashback"]) && !empty($_POST["flashback"]) ||
                     isset($_POST["admin"]) && !empty($_POST["admin"])
-                    )
+                )
             ) {
                 $user->setEmail($_POST["email"]);
                 if (!$user->existUser()) {
@@ -86,7 +88,8 @@ class UtilisateurController extends Controller {
         ));
     }
 
-    public function modification($id = null, $created = false) {
+    public function modification($id = null, $created = false)
+    {
         $users = null;
         $user = null;
         $userController = new User();
@@ -96,20 +99,20 @@ class UtilisateurController extends Controller {
         }
         if (isset($id) && !empty($id)) {
             $userController->setId($id);
-            
+
             if ((!empty($_POST))) {
                 if ((isset($_POST["email"]) && !empty($_POST["email"])) &&
-                        isset($_POST["motdepasse"]) &&
-                        (
+                    isset($_POST["motdepasse"]) &&
+                    (
                         isset($_POST["avenir"]) && !empty($_POST["avenir"]) ||
                         isset($_POST["lesphotos"]) && !empty($_POST["lesphotos"]) ||
                         isset($_POST["flashback"]) && !empty($_POST["flashback"]) ||
                         isset($_POST["admin"]) && !empty($_POST["admin"])
-                        )
+                    )
                 ) {
                     $userController->setEmail($_POST["email"]);
                     if ($userController->existUser()) {
-                        
+
                         if (isset($_POST["avenir"])) {
                             $userController->setAvenir($_POST["avenir"]);
                         } else {
@@ -130,14 +133,14 @@ class UtilisateurController extends Controller {
                         } else {
                             $userController->setAdmin('0');
                         }
-                        
+
                         if (isset($_POST["motdepasse"]) && !empty($_POST["motdepasse"])) {
                             $userController->setMotdepasse($_POST["motdepasse"]);
                             $return = $userController->updateUser();
-                        }else{
+                        } else {
                             $return = $userController->updateUserWithoutPassword();
                         }
-                        
+
 
                         if ($return && $id > 0) {
                             $this->success = "Utilisateur modifié.";
@@ -151,7 +154,7 @@ class UtilisateurController extends Controller {
                     $this->error = "Tous les champs sont obligatoires.";
                 }
             }
-            
+
             $user = $userController->getUserById();
             $user["isUser"] = true;
         } else {
@@ -168,10 +171,11 @@ class UtilisateurController extends Controller {
         ));
     }
 
-    public function suppression() {
+    public function suppression()
+    {
         $utilisateurConstruct = new User();
 
-         if ((!empty($_POST))) {
+        if ((!empty($_POST))) {
             if ((isset($_POST["idUser"]) && !empty($_POST["idUser"]))) {
 
                 $utilisateurConstruct->setId($_POST["idUser"]);
@@ -184,7 +188,7 @@ class UtilisateurController extends Controller {
                 $this->error = "Tous les champs sont obligatoires.";
             }
         }
-        
+
         $utilisateurs = $utilisateurConstruct->getAllUser();
 
         $this->render($this->dirView . '/suppression', array(
@@ -195,7 +199,8 @@ class UtilisateurController extends Controller {
         ));
     }
 
-    public function liste() {
+    public function liste()
+    {
         $utilisateurConstruct = new User();
         $utilisateurs = $utilisateurConstruct->getAllUser();
 

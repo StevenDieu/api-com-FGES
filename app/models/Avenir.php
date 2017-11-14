@@ -1,6 +1,7 @@
 <?php
 
-class Avenir extends Database {
+class Avenir extends Database
+{
 
     private $id;
     private $titre;
@@ -10,11 +11,13 @@ class Avenir extends Database {
     private $active;
     private $lieu;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
     }
 
-    public function addAvenir() {
+    public function addAvenir()
+    {
 
 
         $stmt = $this->dbh->prepare("INSERT INTO a_venir VALUES (null,?,?,?,?,?,?)");
@@ -31,7 +34,8 @@ class Avenir extends Database {
         $this->id = $this->dbh->lastInsertId();
     }
 
-    public function updateAvenir() {
+    public function updateAvenir()
+    {
         $dateTimeDebut = new DateTime($this->dateDebut);
         $dateTimeFin = new DateTime($this->dateFin);
 
@@ -59,7 +63,8 @@ class Avenir extends Database {
         }
     }
 
-    public function getAvenirById() {
+    public function getAvenirById()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM a_venir WHERE id = ?');
 
         $stmt->bindParam(1, $this->id);
@@ -72,7 +77,8 @@ class Avenir extends Database {
         }
     }
 
-    function getFlashbackByIdActive() {
+    function getFlashbackByIdActive()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM flashback WHERE id = ? and active = 1');
 
         $stmt->bindParam(1, $this->id);
@@ -85,7 +91,8 @@ class Avenir extends Database {
         }
     }
 
-    public function getAllAvenir() {
+    public function getAllAvenir()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM a_venir order by date_debut desc');
 
         $stmt->execute();
@@ -97,7 +104,8 @@ class Avenir extends Database {
         }
     }
 
-    public function getAllAvenirActive() {
+    public function getAllAvenirActive()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM a_venir where active = 1 AND date_fin > CURDATE() order by date_debut asc');
 
         $stmt->execute();
@@ -109,7 +117,8 @@ class Avenir extends Database {
         }
     }
 
-    public function getAllFlashbackByPage($start, $limit) {
+    public function getAllFlashbackByPage($start, $limit)
+    {
         $stmt = $this->dbh->prepare('SELECT id,titre,date_debut FROM flashback where active = 1 order by date_debut asc LIMIT ? OFFSET ?');
         $startInt = intval($start);
         $stmt->bindParam(1, $limit, PDO::PARAM_INT);
@@ -124,19 +133,21 @@ class Avenir extends Database {
         }
     }
 
-    public function countAvenir() {
+    public function countAvenir()
+    {
         $stmt = $this->dbh->prepare('select count(id) as numberAvenir from a_venir where active = 1 AND date_fin > CURDATE()');
 
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetch(PDO::FETCH_ASSOC)["numberAvenir"];
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
             return false;
         }
     }
 
-    public function deleteAvenirById() {
+    public function deleteAvenirById()
+    {
 
         $stmt = $this->dbh->prepare('DELETE FROM a_venir
         WHERE id = ?');
@@ -151,71 +162,86 @@ class Avenir extends Database {
         }
     }
 
-    function getNextId() {
+    function getNextId()
+    {
         $stmt = $this->dbh->prepare("SHOW TABLE STATUS FROM comin LIKE 'flashback'");
 
         $stmt->execute();
 
         if ($stmt->rowCount()) {
-            return $stmt->fetch(PDO::FETCH_ASSOC)["Auto_increment"];
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
             return false;
         }
     }
 
-    function getId() {
+    function getId()
+    {
         return $this->id;
     }
 
-    function getTitre() {
-        return $this->titre;
-    }
-
-    function getDescription() {
-        return $this->description;
-    }
-
-    function getDateDebut() {
-        return $this->dateDebut;
-    }
-
-    function getDateFin() {
-        return $this->dateFin;
-    }
-
-    function getActive() {
-        return $this->active;
-    }
-
-    function getLieu() {
-        return $this->lieu;
-    }
-
-    function setId($id) {
+    function setId($id)
+    {
         $this->id = $id;
     }
 
-    function setTitre($titre) {
+    function getTitre()
+    {
+        return $this->titre;
+    }
+
+    function setTitre($titre)
+    {
         $this->titre = $titre;
     }
 
-    function setDescription($description) {
+    function getDescription()
+    {
+        return $this->description;
+    }
+
+    function setDescription($description)
+    {
         $this->description = $description;
     }
 
-    function setDateDebut($dateDebut) {
+    function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    function setDateDebut($dateDebut)
+    {
         $this->dateDebut = $dateDebut;
     }
 
-    function setDateFin($dateFin) {
+    function getDateFin()
+    {
+        return $this->dateFin;
+    }
+
+    function setDateFin($dateFin)
+    {
         $this->dateFin = $dateFin;
     }
 
-    function setActive($active) {
+    function getActive()
+    {
+        return $this->active;
+    }
+
+    function setActive($active)
+    {
         $this->active = $active;
     }
 
-    function setLieu($lieu) {
+    function getLieu()
+    {
+        return $this->lieu;
+    }
+
+    function setLieu($lieu)
+    {
         $this->lieu = $lieu;
     }
 

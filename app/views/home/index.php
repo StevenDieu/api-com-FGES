@@ -1,5 +1,3 @@
-
-
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="">
@@ -20,8 +18,8 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <br />
-                       Bienvenue sur le site d'administrationde l'application COM'IN
+                        <br/>
+                        Bienvenue sur le site d'administrationde l'application COM'IN
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 <?php
 
-class User extends Database {
+class User extends Database
+{
 
     private $id;
     private $email;
@@ -10,11 +11,13 @@ class User extends Database {
     private $flashback;
     private $admin;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
     }
 
-    public function addUser() {
+    public function addUser()
+    {
         $motdepasse = md5($this->motdepasse);
 
         $stmt = $this->dbh->prepare("INSERT INTO user VALUES (null,?,?,?,?,?,?)");
@@ -31,7 +34,8 @@ class User extends Database {
         $this->id = $this->dbh->lastInsertId();
     }
 
-    public function updateUserWithoutPassword() {
+    public function updateUserWithoutPassword()
+    {
         if ($this->isSuperAdminLogin()) {
             $stmt = $this->dbh->prepare("UPDATE user
             SET email = ?, avenir = ?, lesphotos = ?, flashback = ?, admin = ?
@@ -50,10 +54,35 @@ class User extends Database {
                 return true;
             }
         }
-         return false;
+        return false;
     }
 
-    public function updateUser() {
+    public function isSuperAdminLogin()
+    {
+        if ($this->isSuperAdmin()) {
+            if ($this->email == "frederic.guilbert@univ-catholille.fr" && $_SESSION["LOGIN"]["email"] == "frederic.guilbert@univ-catholille.fr") {
+                $this->admin = "1";
+                return true;
+            }
+
+            if ($this->email == "coralie.talma@univ-catholille.fr" && $_SESSION["LOGIN"]["email"] == "coralie.talma@univ-catholille.fr") {
+                $this->admin = "1";
+                return true;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->email == "frederic.guilbert@univ-catholille.fr" || $this->email == "coralie.talma@univ-catholille.fr";
+    }
+
+    public function updateUser()
+    {
         if ($this->isSuperAdminLogin()) {
             $motdepasse = md5($this->motdepasse);
 
@@ -78,7 +107,8 @@ class User extends Database {
         return false;
     }
 
-    public function existUser() {
+    public function existUser()
+    {
         $stmt = $this->dbh->prepare('select email from user where email = ?');
 
         $stmt->bindParam(1, $this->email);
@@ -91,13 +121,14 @@ class User extends Database {
         }
     }
 
-    public function auth() {
+    public function auth()
+    {
         $motdepasse = md5($this->motdepasse);
 
         $stmt = $this->dbh->prepare(''
-                . 'SELECT * '
-                . 'FROM user '
-                . 'WHERE email = ? and motdepasse = ?');
+            . 'SELECT * '
+            . 'FROM user '
+            . 'WHERE email = ? and motdepasse = ?');
 
         $stmt->bindParam(1, $this->email);
         $stmt->bindParam(2, $motdepasse);
@@ -110,7 +141,8 @@ class User extends Database {
         }
     }
 
-    public function getUserByEmail() {
+    public function getUserByEmail()
+    {
         $stmt = $this->dbh->prepare('SELECT * 
                 FROM user 
                 WHERE email = ?');
@@ -125,22 +157,8 @@ class User extends Database {
         }
     }
 
-    public function getUserById() {
-        $stmt = $this->dbh->prepare('SELECT * 
-                FROM user 
-                WHERE id = ?');
-
-        $stmt->bindParam(1, $this->id);
-        $stmt->execute();
-
-        if (count($stmt)) {
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } else {
-            return false;
-        }
-    }
-
-    public function getAllUser() {
+    public function getAllUser()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM user');
 
         $stmt->execute();
@@ -152,7 +170,8 @@ class User extends Database {
         }
     }
 
-    public function deleteUserById() {
+    public function deleteUserById()
+    {
         $user = $this->getUserById();
         if (!$user) {
             return false;
@@ -172,93 +191,101 @@ class User extends Database {
         return false;
     }
 
-    public function isSuperAdmin() {
-        return $this->email == "frederic.guilbert@univ-catholille.fr" || $this->email == "coralie.talma@univ-catholille.fr";
-    }
+    public function getUserById()
+    {
+        $stmt = $this->dbh->prepare('SELECT * 
+                FROM user 
+                WHERE id = ?');
 
-    public function isSuperAdminLogin() {
-        if ($this->isSuperAdmin()) {
-            if ($this->email == "frederic.guilbert@univ-catholille.fr" && $_SESSION["LOGIN"]["email"] == "frederic.guilbert@univ-catholille.fr") {
-                $this->admin = "1";
-                return true;
-            }
+        $stmt->bindParam(1, $this->id);
+        $stmt->execute();
 
-            if ($this->email == "coralie.talma@univ-catholille.fr" && $_SESSION["LOGIN"]["email"] == "coralie.talma@univ-catholille.fr") {
-                $this->admin = "1";
-                return true;
-            }
-            
+        if (count($stmt)) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
             return false;
         }
-
-        return true;
     }
 
     /**
      * @return mixed
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
     /**
      * @param mixed $email
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
 
     /**
      * @return mixed
      */
-    public function getMotdepasse() {
+    public function getMotdepasse()
+    {
         return $this->motdepasse;
     }
 
     /**
      * @param mixed $motdepasse
      */
-    public function setMotdepasse($motdepasse) {
+    public function setMotdepasse($motdepasse)
+    {
         $this->motdepasse = $motdepasse;
     }
 
-    function getAvenir() {
+    function getAvenir()
+    {
         return $this->avenir;
     }
 
-    function getLesphotos() {
-        return $this->lesphotos;
-    }
-
-    function getFlashback() {
-        return $this->flashback;
-    }
-
-    function getAdmin() {
-        return $this->admin;
-    }
-
-    function setAvenir($avenir) {
+    function setAvenir($avenir)
+    {
         $this->avenir = $avenir;
     }
 
-    function setLesphotos($lesphotos) {
+    function getLesphotos()
+    {
+        return $this->lesphotos;
+    }
+
+    function setLesphotos($lesphotos)
+    {
         $this->lesphotos = $lesphotos;
     }
 
-    function setFlashback($flashback) {
+    function getFlashback()
+    {
+        return $this->flashback;
+    }
+
+    function setFlashback($flashback)
+    {
         $this->flashback = $flashback;
     }
 
-    function setAdmin($admin) {
+    function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    function setAdmin($admin)
+    {
         $this->admin = $admin;
     }
 
-    function getId() {
+    function getId()
+    {
         return $this->id;
     }
 
-    function setId($id) {
+    function setId($id)
+    {
         $this->id = $id;
     }
 

@@ -1,10 +1,12 @@
 <?php
 
-class AssistanceController extends Controller {
+class AssistanceController extends Controller
+{
 
     private $dirView = 'assistance';
 
-    public function index() {
+    public function index()
+    {
         $message = "";
         $class = "";
         if ($_POST) {
@@ -23,8 +25,9 @@ class AssistanceController extends Controller {
         ));
     }
 
-    public function envoyer() {
-        
+    public function envoyer()
+    {
+
     }
 
 }

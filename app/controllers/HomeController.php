@@ -1,8 +1,10 @@
 <?php
 
-class HomeController extends Controller {
+class HomeController extends Controller
+{
 
-    public function index() {
+    public function index()
+    {
         $this->render('home/index', array(
             'title' => 'Accueil'
         ));

@@ -26,41 +26,47 @@
                                 <div class="table-responsive">
                                     <table class="table table-striped jambo_table bulk_action">
                                         <thead>
-                                            <tr class="headings">
-                                                <th class="column-title">Titre </th>
-                                                <th class="column-title">Date </th>
-                                                <th class="column-title center-text">Active </th>
-                                                <th class="column-title no-link last center-text"><span class="nobr">Action</span>
-                                                </th>
-                                            </tr>
+                                        <tr class="headings">
+                                            <th class="column-title">Titre</th>
+                                            <th class="column-title">Date</th>
+                                            <th class="column-title center-text">Active</th>
+                                            <th class="column-title no-link last center-text"><span
+                                                        class="nobr">Action</span>
+                                            </th>
+                                        </tr>
                                         </thead>
 
                                         <tbody>
-                                            <?php
-                                            foreach ($data["albums"] as $album) {
-                                                ?>
-                                                <tr class="even pointer">
-                                                    <td class=" "><?php echo $album["titre"]; ?></td>
-                                                    <td class=" "><?php echo $album["date_debut"]; ?></td>
-                                                    <td class="center-text">
-                                                        <?php if ($album["active"]) { ?> 
-                                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                        <?php } else { ?>
-                                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>                                                
-                                                        <?php } ?>
-                                                    </td>
-                                                    <td class=" last center-text"><a href="/lesphotos/modificationPhotos/<?php echo $album["id"] ?>">Visionner photos</a>
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
+                                        <?php
+                                        foreach ($data["albums"] as $album) {
+                                            ?>
+                                            <tr class="even pointer">
+                                                <td class=" "><?php echo $album["titre"]; ?></td>
+                                                <td class=" "><?php echo $album["date_debut"]; ?></td>
+                                                <td class="center-text">
+                                                    <?php if ($album["active"]) { ?>
+                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                    <?php } else { ?>
+                                                        <span class="glyphicon glyphicon-remove"
+                                                              aria-hidden="true"></span>
+                                                    <?php } ?>
+                                                </td>
+                                                <td class=" last center-text"><a
+                                                            href="/lesphotos/modificationPhotos/<?php echo $album["id"] ?>">Visionner
+                                                        photos</a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
                             <?php } else { ?>
                                 <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                                aria-hidden="true">×</span>
                                     </button>
-                                    <strong>Attention!</strong> Aucun album existe ! Pour en créer un cliquer <a href="/lesphotos/creation" >ici</a>
+                                    <strong>Attention!</strong> Aucun album existe ! Pour en créer un cliquer <a
+                                            href="/lesphotos/creation">ici</a>
                                 </div>
                             <?php } ?>
                         </div>

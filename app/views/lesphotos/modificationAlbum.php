@@ -1,4 +1,3 @@
-
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
@@ -11,14 +10,16 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <?php if (isset($data["error"])) { ?>
                     <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span>
                         </button>
                         <strong>Attention!</strong> <?php echo $data['error'] ?>
                     </div>
                 <?php } ?>
                 <?php if (isset($data["success"]) && isset($data["album"]["id"]) && !empty($data["album"]["id"])) { ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span>
                         </button>
                         <strong>Succès!</strong> <?php echo $data['success'] ?>
                     </div>
@@ -35,10 +36,13 @@
                         <br>
 
                         <?php if (isset($data["album"]) && !empty($data["album"]) && isset($data["album"]["id"]) && !empty($data["album"]["id"])) { ?>
-                            <form id="form-froala"  action="/lesphotos/modificationAlbum/<?php echo $data["album"]["id"]; ?>" class="form-horizontal form-label-left" method="post">
+                            <form id="form-froala"
+                                  action="/lesphotos/modificationAlbum/<?php echo $data["album"]["id"]; ?>"
+                                  class="form-horizontal form-label-left" method="post">
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Titre <span class="required">*</span>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Titre
+                                            <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="text" id="first-name" name="titre" value="<?php
@@ -49,10 +53,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date de l'évènement <span class="required">*</span>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date de l'évènement
+                                            <span class="required">*</span>
                                         </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="birthday" name="date" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text" value="<?php
+                                            <input id="birthday" name="date"
+                                                   class="date-picker form-control col-md-7 col-xs-12"
+                                                   required="required" type="text" value="<?php
                                             if (isset($data["album"])) {
                                                 echo $data["album"]["date_debut"];
                                             }
@@ -60,12 +67,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Actif <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Actif <span
+                                                    class="required">*</span></label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div id="gender" class="btn-group" data-toggle="buttons">
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="active" required="" value="1" data-parsley-multiple="actif" <?php
+                                                        <input type="radio" name="active" required="" value="1"
+                                                               data-parsley-multiple="actif" <?php
                                                         if (isset($data["album"]) && $data["album"]["active"] == 1) {
                                                             echo "checked";
                                                         }
@@ -74,7 +83,8 @@
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="active" required="" value="0" data-parsley-multiple="actif" <?php
+                                                        <input type="radio" name="active" required="" value="0"
+                                                               data-parsley-multiple="actif" <?php
                                                         if ((isset($data["album"]) && $data["album"]["active"] == 0) || !isset($data["album"])) {
                                                             echo "checked";
                                                         }
@@ -95,9 +105,11 @@
                             </form>
                         <?php } else { ?>
                             <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                            aria-hidden="true">×</span>
                                 </button>
-                                <strong>Attention!</strong> Cette album n'existe pas ! Pour en créer un cliquer <a href="/lesphotos/creation" >ici</a>
+                                <strong>Attention!</strong> Cette album n'existe pas ! Pour en créer un cliquer <a
+                                        href="/lesphotos/creation">ici</a>
                             </div>
                         <?php } ?>
                     </div>

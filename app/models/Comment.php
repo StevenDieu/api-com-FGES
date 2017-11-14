@@ -6,7 +6,8 @@
  * and open the template in the editor.
  */
 
-class Comment extends Database {
+class Comment extends Database
+{
 
     private $id;
     private $type;
@@ -16,11 +17,13 @@ class Comment extends Database {
     private $active;
     private $created;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
     }
 
-    public function addComment() {
+    public function addComment()
+    {
         $stmt = $this->dbh->prepare("INSERT INTO comment (id, type, id_type, name, text, active, created) VALUES  (null,?,?,?,?,0,CURRENT_TIMESTAMP)");
 
         $stmt->bindParam(1, $this->type);
@@ -33,7 +36,8 @@ class Comment extends Database {
         $this->id = $this->dbh->lastInsertId();
     }
 
-    public function getCountCommentActiveByIdType() {
+    public function getCountCommentActiveByIdType()
+    {
         $stmt = $this->dbh->prepare('select count(id) as numberComment from comment where active = 1 and type = ? and id_type = ? ');
 
         $stmt->bindParam(1, $this->type);
@@ -42,13 +46,14 @@ class Comment extends Database {
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetch(PDO::FETCH_ASSOC)["numberComment"];
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
             return 0;
         }
     }
 
-    public function getAllCommentActiveById() {
+    public function getAllCommentActiveById()
+    {
         $stmt = $this->dbh->prepare('SELECT name,text,created from comment where active = 1 and type = ? and id_type = ? order by created desc');
 
         $stmt->bindParam(1, $this->type);
@@ -63,7 +68,8 @@ class Comment extends Database {
         }
     }
 
-    public function getAllCommentByTypeId($select, $innerJoin) {
+    public function getAllCommentByTypeId($select, $innerJoin)
+    {
         $active = '';
         if ($this->active != null) {
             $active = 'AND c.active = ?';
@@ -78,7 +84,7 @@ class Comment extends Database {
         }
 
         $stmt->execute();
-        
+
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll();
         } else {
@@ -86,7 +92,8 @@ class Comment extends Database {
         }
     }
 
-    public function getArticleWithAllCommentsByIdType($select, $innerJoin) {
+    public function getArticleWithAllCommentsByIdType($select, $innerJoin)
+    {
 
 
         $stmt = $this->dbh->prepare('SELECT c.id as id, c.name as name, c.text as text, c.active as active, c.created as created, ' . $select . ' from comment c ' . $innerJoin . ' where c.id_type = ? order by created desc');
@@ -102,7 +109,8 @@ class Comment extends Database {
         }
     }
 
-    public function changeActive() {
+    public function changeActive()
+    {
 
         $stmt = $this->dbh->prepare('UPDATE comment SET active = ? WHERE id = ?');
 
@@ -118,7 +126,8 @@ class Comment extends Database {
         }
     }
 
-    public function getCountCommentInatifByType() {
+    public function getCountCommentInatifByType()
+    {
         $stmt = $this->dbh->prepare('select count(id) as numberComment from comment where active = 0 and type = ?');
 
         $stmt->bindParam(1, $this->type);
@@ -126,13 +135,14 @@ class Comment extends Database {
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetch(PDO::FETCH_ASSOC)["numberComment"];
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
             return 0;
         }
     }
 
-    public function deleteCommentById() {
+    public function deleteCommentById()
+    {
         $stmt = $this->dbh->prepare('DELETE FROM comment WHERE id = ?');
 
         $stmt->bindParam(1, $this->id);
@@ -146,59 +156,73 @@ class Comment extends Database {
         }
     }
 
-    function getId() {
+    function getId()
+    {
         return $this->id;
     }
 
-    function getType() {
-        return $this->type;
-    }
-
-    function getIdType() {
-        return $this->idType;
-    }
-
-    function getName() {
-        return $this->name;
-    }
-
-    function getText() {
-        return $this->text;
-    }
-
-    function getCreated() {
-        return $this->created;
-    }
-
-    function setId($id) {
+    function setId($id)
+    {
         $this->id = $id;
     }
 
-    function setType($type) {
+    function getType()
+    {
+        return $this->type;
+    }
+
+    function setType($type)
+    {
         $this->type = $type;
     }
 
-    function setIdType($idType) {
+    function getIdType()
+    {
+        return $this->idType;
+    }
+
+    function setIdType($idType)
+    {
         $this->idType = $idType;
     }
 
-    function setName($name) {
+    function getName()
+    {
+        return $this->name;
+    }
+
+    function setName($name)
+    {
         $this->name = $name;
     }
 
-    function setText($text) {
+    function getText()
+    {
+        return $this->text;
+    }
+
+    function setText($text)
+    {
         $this->text = $text;
     }
 
-    function setCreated($created) {
+    function getCreated()
+    {
+        return $this->created;
+    }
+
+    function setCreated($created)
+    {
         $this->created = $created;
     }
 
-    function getActive() {
+    function getActive()
+    {
         return $this->active;
     }
 
-    function setActive($active) {
+    function setActive($active)
+    {
         $this->active = $active;
     }
 

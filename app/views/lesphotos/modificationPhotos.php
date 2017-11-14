@@ -10,14 +10,16 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <?php if (isset($data["error"])) { ?>
                     <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span>
                         </button>
                         <strong>Attention!</strong> <?php echo $data['error'] ?>
                     </div>
                 <?php } ?>
                 <?php if (isset($data["success"]) && isset($data["album"]["id"]) && !empty($data["album"]["id"])) { ?>
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span>
                         </button>
                         <strong>Succès!</strong> <?php echo $data['success'] ?>
                     </div>
@@ -35,7 +37,8 @@
                             <script type="text/javascript">
                                 var idAlbum = <?php echo $data["album"]["id"]; ?>
                             </script>
-                            <p>Faites glisser plusieurs fichiers dans la case ci-dessous pour le multi-téléchargement d'images ou cliquez dessus pour sélectionner des images.</p>
+                            <p>Faites glisser plusieurs fichiers dans la case ci-dessous pour le multi-téléchargement
+                                d'images ou cliquez dessus pour sélectionner des images.</p>
                             <div class="form-group">
                                 <form action="form_upload.html" id="ajouterImageAlbum" class="dropzone dz-clickable">
                                     <div class="dz-default dz-message">
@@ -47,27 +50,32 @@
                             <div class="table-responsive">
                                 <table class="table table-striped jambo_table bulk_action">
                                     <thead>
-                                        <tr class="headings">
-                                            <th class="center-text column-title">Photo </th>
-                                            <th class="column-title no-link last"><span class="nobr">Action</span>
-                                            </th>
-                                        </tr>
+                                    <tr class="headings">
+                                        <th class="center-text column-title">Photo</th>
+                                        <th class="column-title no-link last"><span class="nobr">Action</span>
+                                        </th>
+                                    </tr>
                                     </thead>
 
                                     <tbody id="all-photos">
-                                        <?php
-                                        if (isset($data["photos"]) && !empty($data["photos"])) {
-                                            foreach ($data["photos"] as $photo) {
-                                                ?>
-                                                <tr class="even pointer" id="<?php echo $photo["id"]; ?>">
-                                                    <td class="center-text"><img class="image-photos" src="<?php echo "http://".$_SERVER['HTTP_HOST'].$photo["url"]; ?>" /></td>
-                                                    <td class="last"><button data-id="<?php echo $photo["id"]; ?>" class="btn btn-danger supprimerImage">Supprimer</button>
-                                                    </td>
-                                                </tr>
-                                                <?php
-                                            }
+                                    <?php
+                                    if (isset($data["photos"]) && !empty($data["photos"])) {
+                                        foreach ($data["photos"] as $photo) {
+                                            ?>
+                                            <tr class="even pointer" id="<?php echo $photo["id"]; ?>">
+                                                <td class="center-text"><img class="image-photos"
+                                                                             src="<?php echo "http://" . $_SERVER['HTTP_HOST'] . $photo["url"]; ?>"/>
+                                                </td>
+                                                <td class="last">
+                                                    <button data-id="<?php echo $photo["id"]; ?>"
+                                                            class="btn btn-danger supprimerImage">Supprimer
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <?php
                                         }
-                                        ?>
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -79,9 +87,11 @@
                             </div>
                         <?php } else { ?>
                             <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                            aria-hidden="true">×</span>
                                 </button>
-                                <strong>Attention!</strong> Cette album n'existe pas ! Pour en créer un cliquer <a href="/lesphotos/creation" >ici</a>
+                                <strong>Attention!</strong> Cette album n'existe pas ! Pour en créer un cliquer <a
+                                        href="/lesphotos/creation">ici</a>
                             </div>
                         <?php } ?>
                     </div>

@@ -1,17 +1,20 @@
 <?php
 
-class Album extends Database {
+class Album extends Database
+{
 
     private $id;
     private $titre;
     private $date;
     private $active;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
     }
 
-    public function addAlbum() {
+    public function addAlbum()
+    {
         $dateTime = new DateTime($this->date);
         $this->date = $dateTime->format('Y-m-d H:i:s');
 
@@ -26,7 +29,8 @@ class Album extends Database {
         $this->id = $this->dbh->lastInsertId();
     }
 
-    public function updateAlbum() {
+    public function updateAlbum()
+    {
         $dateTime = new DateTime($this->date);
         $this->date = $dateTime->format('Y-m-d H:i:s');
 
@@ -48,7 +52,8 @@ class Album extends Database {
         }
     }
 
-    public function getAlbumById() {
+    public function getAlbumById()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM album WHERE id = ?');
 
         $stmt->bindParam(1, $this->id);
@@ -61,7 +66,8 @@ class Album extends Database {
         }
     }
 
-    function getAlbumByIdActive() {
+    function getAlbumByIdActive()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM album WHERE id = ? and active = 1');
 
         $stmt->bindParam(1, $this->id);
@@ -74,7 +80,8 @@ class Album extends Database {
         }
     }
 
-    public function getAllAlbum() {
+    public function getAllAlbum()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM album');
 
         $stmt->execute();
@@ -86,7 +93,8 @@ class Album extends Database {
         }
     }
 
-    public function getAllAlbumByPage($start, $limit) {
+    public function getAllAlbumByPage($start, $limit)
+    {
         $startInt = intval($start);
 
         $stmt = $this->dbh->prepare('SELECT * FROM album where active = 1 order by date_debut desc LIMIT ? OFFSET ?');
@@ -103,19 +111,21 @@ class Album extends Database {
         }
     }
 
-    public function countAlbum() {
+    public function countAlbum()
+    {
         $stmt = $this->dbh->prepare('select count(id) as numberAlbum from album where active = 1 ');
 
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetch(PDO::FETCH_ASSOC)["numberAlbum"];
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
             return false;
         }
     }
 
-    public function deleteAlbumById() {
+    public function deleteAlbumById()
+    {
 
         $stmt = $this->dbh->prepare('DELETE FROM album
         WHERE id = ?');
@@ -130,47 +140,56 @@ class Album extends Database {
         }
     }
 
-    function getNextId() {
+    function getNextId()
+    {
         $stmt = $this->dbh->prepare("SHOW TABLE STATUS FROM comin LIKE 'album'");
 
         $stmt->execute();
 
         if ($stmt->rowCount()) {
-            return $stmt->fetch(PDO::FETCH_ASSOC)["Auto_increment"];
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
             return false;
         }
     }
 
-    function getId() {
+    function getId()
+    {
         return $this->id;
     }
 
-    function getTitre() {
-        return $this->titre;
-    }
-
-    function getDate() {
-        return $this->date;
-    }
-
-    function getActive() {
-        return $this->active;
-    }
-
-    function setId($id) {
+    function setId($id)
+    {
         $this->id = $id;
     }
 
-    function setTitre($titre) {
+    function getTitre()
+    {
+        return $this->titre;
+    }
+
+    function setTitre($titre)
+    {
         $this->titre = $titre;
     }
 
-    function setDate($date) {
+    function getDate()
+    {
+        return $this->date;
+    }
+
+    function setDate($date)
+    {
         $this->date = $date;
     }
 
-    function setActive($active) {
+    function getActive()
+    {
+        return $this->active;
+    }
+
+    function setActive($active)
+    {
         $this->active = $active;
     }
 

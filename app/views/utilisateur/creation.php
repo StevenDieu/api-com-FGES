@@ -11,7 +11,8 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <?php if (isset($data["error"])) { ?>
                     <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">×</span>
                         </button>
                         <strong>Attention!</strong> <?php echo $data['error'] ?>
                     </div>
@@ -26,10 +27,12 @@
                     </div>
                     <div class="x_content">
                         <br>
-                        <form id="form-froala" action="/utilisateur/creation/" method="post" class="form-horizontal form-label-left" >
+                        <form id="form-froala" action="/utilisateur/creation/" method="post"
+                              class="form-horizontal form-label-left">
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Email <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Email <span
+                                            class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="email" name="email" value="<?php
@@ -41,7 +44,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Mot de passe <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Mot de passe
+                                    <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input type="password" name="motdepasse" value="<?php
@@ -53,52 +57,53 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Droit d'accés <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Droit d'accés
+                                    <span class="required">*</span>
                                 </label>
 
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="avenir" value="1"
-                                            <?php
-                                            if (isset($data["utilisateur"]) && $data["utilisateur"]->getAvenir() == 1) {
-                                                echo "checked";
-                                            }
-                                            ?>
-                                                   > A venir
+                                                <?php
+                                                if (isset($data["utilisateur"]) && $data["utilisateur"]->getAvenir() == 1) {
+                                                    echo "checked";
+                                                }
+                                                ?>
+                                            > A venir
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="lesphotos" value="1"
-                                            <?php
-                                            if (isset($data["utilisateur"]) && $data["utilisateur"]->getLesphotos() == 1) {
-                                                echo "checked";
-                                            }
-                                            ?>
-                                                   > Les photos
+                                                <?php
+                                                if (isset($data["utilisateur"]) && $data["utilisateur"]->getLesphotos() == 1) {
+                                                    echo "checked";
+                                                }
+                                                ?>
+                                            > Les photos
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="flashback" value="1"
-                                            <?php
-                                            if (isset($data["utilisateur"]) && $data["utilisateur"]->getFlashback() == 1) {
-                                                echo "checked";
-                                            }
-                                            ?>
-                                                   > Flashback
+                                                <?php
+                                                if (isset($data["utilisateur"]) && $data["utilisateur"]->getFlashback() == 1) {
+                                                    echo "checked";
+                                                }
+                                                ?>
+                                            > Flashback
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="admin" value="1"
-                                            <?php
-                                            if (isset($data["utilisateur"]) && $data["utilisateur"]->getAdmin() == 1) {
-                                                echo "checked";
-                                            }
-                                            ?>
-                                                   > Admin
+                                                <?php
+                                                if (isset($data["utilisateur"]) && $data["utilisateur"]->getAdmin() == 1) {
+                                                    echo "checked";
+                                                }
+                                                ?>
+                                            > Admin
                                         </label>
                                     </div>
                                 </div>

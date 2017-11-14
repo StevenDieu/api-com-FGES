@@ -1,6 +1,7 @@
 <?php
 
-class Flashback extends Database {
+class Flashback extends Database
+{
 
     private $id;
     private $titre;
@@ -8,11 +9,13 @@ class Flashback extends Database {
     private $date;
     private $active;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
     }
 
-    public function addFlashback() {
+    public function addFlashback()
+    {
         $dateTime = new DateTime($this->date);
         $this->date = $dateTime->format('Y-m-d H:i:s');
 
@@ -28,7 +31,8 @@ class Flashback extends Database {
         $this->id = $this->dbh->lastInsertId();
     }
 
-    public function updateFlashback() {
+    public function updateFlashback()
+    {
         $dateTime = new DateTime($this->date);
         $this->date = $dateTime->format('Y-m-d H:i:s');
 
@@ -51,7 +55,8 @@ class Flashback extends Database {
         }
     }
 
-    public function getFlashbackById() {
+    public function getFlashbackById()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM flashback WHERE id = ?');
 
         $stmt->bindParam(1, $this->id);
@@ -64,7 +69,8 @@ class Flashback extends Database {
         }
     }
 
-    function getFlashbackByIdActive() {
+    function getFlashbackByIdActive()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM flashback WHERE id = ? and active = 1');
 
         $stmt->bindParam(1, $this->id);
@@ -77,7 +83,8 @@ class Flashback extends Database {
         }
     }
 
-    public function getAllFlashback() {
+    public function getAllFlashback()
+    {
         $stmt = $this->dbh->prepare('SELECT * FROM flashback');
 
         $stmt->execute();
@@ -89,7 +96,8 @@ class Flashback extends Database {
         }
     }
 
-    public function getAllFlashbackByPage($start, $limit) {
+    public function getAllFlashbackByPage($start, $limit)
+    {
         $stmt = $this->dbh->prepare('SELECT id,titre,date_debut FROM flashback where active = 1 order by date_debut desc LIMIT ? OFFSET ?');
         $startInt = intval($start);
         $stmt->bindParam(1, $limit, PDO::PARAM_INT);
@@ -104,19 +112,21 @@ class Flashback extends Database {
         }
     }
 
-    public function countFlashback() {
+    public function countFlashback()
+    {
         $stmt = $this->dbh->prepare('select count(id) as numberFlashback from flashback where active = 1');
 
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetch(PDO::FETCH_ASSOC)["numberFlashback"];
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
             return false;
         }
     }
 
-    public function deleteFlashbackById() {
+    public function deleteFlashbackById()
+    {
 
         $stmt = $this->dbh->prepare('DELETE FROM flashback
         WHERE id = ?');
@@ -131,55 +141,66 @@ class Flashback extends Database {
         }
     }
 
-    function getNextId() {
+    function getNextId()
+    {
         $stmt = $this->dbh->prepare("SHOW TABLE STATUS FROM comin LIKE 'flashback'");
 
         $stmt->execute();
 
         if ($stmt->rowCount()) {
-            return $stmt->fetch(PDO::FETCH_ASSOC)["Auto_increment"];
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
             return false;
         }
     }
 
-    function getId() {
+    function getId()
+    {
         return $this->id;
     }
 
-    function getTitre() {
-        return $this->titre;
-    }
-
-    function getDescription() {
-        return $this->description;
-    }
-
-    function getDate() {
-        return $this->date;
-    }
-
-    function getActive() {
-        return $this->active;
-    }
-
-    function setId($id) {
+    function setId($id)
+    {
         $this->id = $id;
     }
 
-    function setTitre($titre) {
+    function getTitre()
+    {
+        return $this->titre;
+    }
+
+    function setTitre($titre)
+    {
         $this->titre = $titre;
     }
 
-    function setDescription($description) {
-        $this->description = str_replace ('src="//www.youtube', 'src="http://www.youtube' , $description);
+    function getDescription()
+    {
+        return $this->description;
     }
 
-    function setDate($date) {
+    function setDescription($description)
+    {
+        $this->description = str_replace('src="//www.youtube', 'src="http://www.youtube', $description);
+    }
+
+    function getDate()
+    {
+        return $this->date;
+    }
+
+    function setDate($date)
+    {
         $this->date = $date;
     }
 
-    function setActive($active) {
+    function getActive()
+    {
+        return $this->active;
+    }
+
+    function setActive($active)
+    {
         $this->active = $active;
     }
 

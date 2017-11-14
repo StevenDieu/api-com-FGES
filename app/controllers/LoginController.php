@@ -1,12 +1,14 @@
 <?php
 
-class LoginController extends Controller {
+class LoginController extends Controller
+{
 
     private $error = null;
     private $userInfos;
 
-    public function index() {
-        if((!empty($_POST))) {
+    public function index()
+    {
+        if ((!empty($_POST))) {
             if ((isset($_POST["email"]) && !empty($_POST["email"])) && (isset($_POST["motdepasse"]) && !empty($_POST["motdepasse"]))) {
 
                 $user = new User();
@@ -31,11 +33,13 @@ class LoginController extends Controller {
         ));
     }
 
-    public function initSession() {
+    public function initSession()
+    {
         $_SESSION["LOGIN"] = $this->userInfos;
     }
 
-    public function disconnect() {
+    public function disconnect()
+    {
         session_destroy();
         header("location: /");
     }

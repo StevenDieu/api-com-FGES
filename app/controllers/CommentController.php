@@ -11,9 +11,11 @@
  *
  * @author steven
  */
-class CommentController extends Controller {
+class CommentController extends Controller
+{
 
-    public function comment($param = null, $param2 = null, $param3 = null) {
+    public function comment($param = null, $param2 = null, $param3 = null)
+    {
         switch ($_SERVER['REQUEST_METHOD']) {
             case "PATCH":
                 if ($param2 == 'active') {
@@ -44,7 +46,8 @@ class CommentController extends Controller {
     }
 
     //REST : comment/$id/active/$active
-    private function actif($id = null, $active = null) {
+    private function actif($id = null, $active = null)
+    {
         header('Content-type: text/plain');
         header("Access-Control-Allow-Origin: *");
 
@@ -67,7 +70,8 @@ class CommentController extends Controller {
     }
 
     //REST : comment/avenirComments/$id
-    public function articleWithAllComment($idType, $select, $innerJoin, $url) {
+    public function articleWithAllComment($idType, $select, $innerJoin, $url)
+    {
         header('Content-type: text/plain');
         header("Access-Control-Allow-Origin: *");
 
@@ -112,7 +116,8 @@ class CommentController extends Controller {
     }
 
     //REST : comment/$id
-    private function deleteComment($id = null) {
+    private function deleteComment($id = null)
+    {
         header('Content-type: text/plain');
         header("Access-Control-Allow-Origin: *");
 

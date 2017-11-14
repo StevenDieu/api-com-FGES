@@ -1,16 +1,18 @@
-<?php
+﻿<?php
 
-class Dispatcher {
+class Dispatcher
+{
 
     protected $controller = 'home';
     protected $method = 'index';
-    protected $params = [];
+    protected $params = array();
     protected $url;
 
-    function __construct() {
+    function __construct()
+    {
         $this->url = $this->parseUrl();
 
-        if ($this->url[0] != "api" && $this->url[0] != "assistance" ) {
+        if ($this->url[0] != "api" && $this->url[0] != "assistance") {
             if ($_SERVER["REQUEST_URI"] != '/login' && empty($_SESSION["LOGIN"])) {
                 header("location: /login");
             }
@@ -23,18 +25,20 @@ class Dispatcher {
         if ($correctControllerIsLoaded && isset($this->url[1])) {
             $this->loadControllerMethod($this->url[1]);
         }
-        $this->params = $this->url ? array_values($this->url) : [];
+        $this->params = $this->url ? array_values($this->url) : array();
 
-        call_user_func_array([$this->controller, $this->method], $this->params);
+        call_user_func_array(array($this->controller, $this->method), $this->params);
     }
 
-    public function parseUrl() {
+    public function parseUrl()
+    {
         if (isset($_GET['url'])) {
             return $this->url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
         }
     }
 
-    protected function loadController($controller) {
+    protected function loadController($controller)
+    {
         if ($controller && file_exists(dirname(__FILE__) . '/../controllers/' . ucfirst($controller) . 'Controller.php')) {
             $correctController = true;
             $this->controller = $controller;
@@ -48,7 +52,8 @@ class Dispatcher {
         return (isset($correctController) && $correctController);
     }
 
-    protected function loadControllerMethod($method) {
+    protected function loadControllerMethod($method)
+    {
         if (method_exists($this->controller, $method)) {
             $this->method = $method;
             unset($this->url[1]);

@@ -1,4 +1,3 @@
-
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
@@ -26,8 +25,9 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Album
                                     </label>
-                                    <div  class="col-md-6 col-sm-6 col-xs-12">
-                                        <select id="selectAlbum" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="selectAlbum" type="text" id="first-name" required="required"
+                                                class="form-control col-md-7 col-xs-12">
                                             <option value="-1">Choisir un album pour modifier un album</option>
                                             <?php
                                             if (isset($data["albums"]) && !empty($data["albums"])) {
@@ -75,8 +75,9 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Album
                                     </label>
-                                    <div  class="col-md-6 col-sm-6 col-xs-12">
-                                        <select id="selectPhotos" type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="selectPhotos" type="text" id="first-name" required="required"
+                                                class="form-control col-md-7 col-xs-12">
                                             <option value="-1">Choisir un album pour l'ajout de photos</option>
                                             <?php
                                             if (isset($data["albums"]) && !empty($data["albums"])) {

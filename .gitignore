@@ -50,3 +50,4 @@ Temporary Items
 /assets/img/avenir/*
 /assets/img/album/*
 *.dist
+/.idea/*
